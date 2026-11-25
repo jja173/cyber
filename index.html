@@ -138,16 +138,6 @@
         <a href="#technology" class="rounded-xl px-3 py-2 text-slate-200 transition hover:bg-navy-700 hover:text-cyanpulse-400">Technology</a>
         <a href="#contact" class="rounded-xl px-3 py-2 text-slate-200 transition hover:bg-navy-700 hover:text-cyanpulse-400">Contact</a>
       </nav>
-
-      <!-- Owner / Admin Settings Button (Shown only to Owner) -->
-      <button id="openOwnerPanelBtn" type="button"
-              class="items-center gap-2 rounded-xl border border-cyanpulse-400/40 bg-navy-700/90 px-3.5 py-2 text-xs sm:text-sm font-semibold text-cyanpulse-400 transition hover:border-cyanpulse-400 hover:bg-navy-600 focus:outline-none focus:ring-2 focus:ring-cyanpulse-400">
-        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
-        </svg>
-        <span>Owner Settings</span>
-      </button>
     </div>
   </header>
 
@@ -198,6 +188,8 @@
             <img id="ownerProfileImg"
                  src="image_87339e.jpg"
                  alt="Jawad Ahmad — Founder & Website Owner"
+                 loading="eager"
+                 decoding="async"
                  class="h-full w-full object-cover object-top"
                  onerror="handleProfileImageError()" />
             <!-- Clean SVG Fallback if local photo is not yet placed alongside HTML or uploaded -->
@@ -239,7 +231,7 @@
       </div>
     </section>
 
-    <!-- Contact Us Section -->
+    <!-- Contact Us Section (with Owner Settings placed right alongside Contact) -->
     <section id="contact" class="bg-navy-900 px-4 py-16 sm:px-6 sm:py-20">
       <div class="mx-auto max-w-2xl rounded-3xl border border-cyanpulse-400/25 bg-navy-700/75 p-8 text-center shadow-xl sm:p-10">
         <h2 class="text-3xl font-extrabold tracking-tight text-cyanpulse-400 sm:text-4xl">
@@ -274,6 +266,15 @@
           <button id="copyEmailBtn" type="button"
                   class="inline-flex items-center justify-center rounded-2xl border border-cyanpulse-400/35 bg-navy-800 px-5 py-3.5 text-sm font-semibold text-slate-200 transition hover:border-cyanpulse-400 hover:text-cyanpulse-400">
             Copy Email
+          </button>
+          <!-- Owner / Admin Settings Button placed alongside Contact (Shown only to Owner) -->
+          <button id="openOwnerPanelBtn" type="button"
+                  class="items-center gap-2 rounded-2xl border border-cyanpulse-400/45 bg-navy-800 px-5 py-3.5 text-sm font-semibold text-cyanpulse-400 transition hover:border-cyanpulse-400 hover:bg-navy-600 focus:outline-none focus:ring-2 focus:ring-cyanpulse-400">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+            </svg>
+            <span>Owner Settings</span>
           </button>
         </div>
       </div>
@@ -613,6 +614,7 @@
      */
     const STORAGE_KEY = 'cyber_world_state_v1';
     const OWNER_SESSION_KEY = 'cyber_world_owner_verified_v1';
+    const DEFAULT_PROFILE_IMAGE = 'image_87339e.jpg';
 
     const DEFAULT_STATE = {
       settings: {
@@ -622,7 +624,7 @@
         ownerName: 'Jawad Ahmad',
         ownerRole: 'Founder & Website Owner',
         contactEmail: 'jawadahmad44@icloud.com',
-        profileImageSrc: 'image_87339e.jpg',
+        profileImageSrc: DEFAULT_PROFILE_IMAGE,
         ownerPassword: 'jawad@2026',
         aboutParagraphs: [
           'Welcome to Cyber World. This website is created by Jawad Ahmad.',
@@ -723,14 +725,18 @@
           return structuredClone(DEFAULT_STATE);
         }
         const parsed = JSON.parse(raw);
+        const mergedSettings = {
+          ...DEFAULT_STATE.settings,
+          ...(parsed.settings || {}),
+          aboutParagraphs: Array.isArray(parsed?.settings?.aboutParagraphs) && parsed.settings.aboutParagraphs.length
+            ? parsed.settings.aboutParagraphs
+            : DEFAULT_STATE.settings.aboutParagraphs
+        };
+        if (!mergedSettings.profileImageSrc || !String(mergedSettings.profileImageSrc).trim()) {
+          mergedSettings.profileImageSrc = DEFAULT_PROFILE_IMAGE;
+        }
         return {
-          settings: {
-            ...DEFAULT_STATE.settings,
-            ...(parsed.settings || {}),
-            aboutParagraphs: Array.isArray(parsed?.settings?.aboutParagraphs) && parsed.settings.aboutParagraphs.length
-              ? parsed.settings.aboutParagraphs
-              : DEFAULT_STATE.settings.aboutParagraphs
-          },
+          settings: mergedSettings,
           categories: DEFAULT_STATE.categories,
           posts: Array.isArray(parsed.posts) && parsed.posts.length
             ? parsed.posts
@@ -820,6 +826,11 @@
     function handleProfileImageError() {
       const img = document.getElementById('ownerProfileImg');
       const fallback = document.getElementById('ownerProfileFallback');
+      if (img && img.getAttribute('src') !== DEFAULT_PROFILE_IMAGE && !img.dataset.retriedDefault) {
+        img.dataset.retriedDefault = 'true';
+        img.src = DEFAULT_PROFILE_IMAGE;
+        return;
+      }
       if (img) img.classList.add('hidden');
       if (fallback) fallback.classList.remove('hidden');
     }
@@ -855,8 +866,9 @@
       const fallbackEl = document.getElementById('ownerProfileFallback');
       fallbackEl.classList.add('hidden');
       imgEl.classList.remove('hidden');
+      delete imgEl.dataset.retriedDefault;
       imgEl.alt = `${settings.ownerName} — ${settings.ownerRole}`;
-      imgEl.src = settings.profileImageSrc || 'image_87339e.jpg';
+      imgEl.src = settings.profileImageSrc || DEFAULT_PROFILE_IMAGE;
 
       document.getElementById('ownerNameDisplay').textContent = settings.ownerName;
       document.getElementById('ownerRoleDisplay').textContent = settings.ownerRole;
@@ -1299,7 +1311,7 @@
       // Reset photo path to image_87339e.jpg
       document.getElementById('resetPhotoToDefaultFileBtn').addEventListener('click', () => {
         if (!requireOwnerAccess()) return;
-        appState.settings.profileImageSrc = 'image_87339e.jpg';
+        appState.settings.profileImageSrc = DEFAULT_PROFILE_IMAGE;
         saveAppState();
         renderAll();
         showToast('Set profile photo path to image_87339e.jpg.');
@@ -1331,6 +1343,7 @@
             ownerRole,
             contactEmail,
             ownerPassword,
+            profileImageSrc: appState.settings.profileImageSrc || DEFAULT_PROFILE_IMAGE,
             heroSubtitle: heroSubtitle || DEFAULT_STATE.settings.heroSubtitle,
             aboutParagraphs: paragraphs.length ? paragraphs : DEFAULT_STATE.settings.aboutParagraphs
           };
@@ -1372,14 +1385,4 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('postDateInput').value = new Date().toISOString().slice(0, 10);
-      syncOwnerButtonVisibility();
-      bindEvents();
-      renderAll();
-      if (window.location.hash === '#owner' && !isOwnerVerified) {
-        openOwnerAuthModal();
-      }
-    });
-  </script>
-</body>
-</html>
+    
