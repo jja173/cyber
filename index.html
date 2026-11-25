@@ -14,108 +14,86 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #07111f;
+            background: #07152e;
             color: white;
+            text-align: center;
         }
 
         header {
-            background: #0b1b30;
-            padding: 22px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+            background: #0b2347;
+            padding: 25px;
         }
 
-        header h2 {
-            color: #00d9ff;
+        header h1 {
+            color: #00c8ff;
+            margin-bottom: 15px;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            margin-left: 20px;
+            margin: 10px;
+            font-size: 16px;
         }
 
         nav a:hover {
-            color: #00d9ff;
+            color: #00c8ff;
         }
 
         .hero {
-            min-height: 75vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
-            background: radial-gradient(circle, #12345a, #07111f 70%);
+            padding: 60px 20px;
         }
 
-        .hero h1 {
-            font-size: 48px;
-            color: #00d9ff;
+        .hero h2 {
+            color: #00c8ff;
+            font-size: 32px;
             margin-bottom: 20px;
         }
 
         .hero p {
-            max-width: 650px;
-            line-height: 1.8;
-            color: #d3e2f2;
             font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .hero img {
+            width: 90%;
+            max-width: 650px;
+            border-radius: 15px;
+            margin: 25px auto;
+            display: block;
         }
 
         .btn {
             display: inline-block;
-            margin-top: 28px;
-            padding: 14px 30px;
-            background: #00bfe8;
-            color: #06111f;
+            background: #00aaff;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
             text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
+            margin-top: 15px;
         }
 
         .btn:hover {
-            background: white;
+            background: #0077cc;
         }
 
         section {
-            padding: 65px 10%;
-            text-align: center;
+            padding: 35px 20px;
+            margin: 20px;
+            background: #102b50;
+            border-radius: 12px;
         }
 
         section h2 {
-            color: #00d9ff;
-            margin-bottom: 20px;
-        }
-
-        section p {
-            line-height: 1.8;
-            color: #c5d5e8;
+            color: #00c8ff;
+            margin-bottom: 15px;
         }
 
         footer {
-            background: #0b1b30;
-            text-align: center;
-            padding: 22px;
-            color: #a9bdd3;
-        }
-
-        @media (max-width: 600px) {
-            header {
-                justify-content: center;
-                gap: 18px;
-            }
-
-            nav a {
-                margin: 7px;
-                display: inline-block;
-            }
-
-            .hero h1 {
-                font-size: 34px;
-            }
+            background: #0b2347;
+            padding: 20px;
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -123,7 +101,7 @@
 <body>
 
     <header>
-        <h2>Cyber World</h2>
+        <h1>Cyber World</h1>
 
         <nav>
             <a href="#home">Home</a>
@@ -133,40 +111,45 @@
     </header>
 
     <div class="hero" id="home">
-        <h1>Welcome to My Cyber World</h1>
+
+        <h2>Welcome to My Cyber World</h2>
 
         <p>
             Welcome to my official website.
             Here you can learn about technology,
             computers and the digital world.
         </p>
+
         <img
-    src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000"
-    alt="Computer Technology"
-    style="width:90%; max-width:650px; border-radius:15px; margin:25px auto; display:block;"
->
->
->
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000"
+            alt="Computer Technology"
+        >
 
         <a href="#about" class="btn">Explore More</a>
+
     </div>
 
     <section id="about">
-        <h2>About Cyber World</h2>
+        <h2>About Us</h2>
+
         <p>
-            Cyber World is a place to explore modern
-            technology, computers and digital knowledge.
-            Discover something new and improve your skills.
+            Cyber World is a website about technology,
+            computers and the digital world.
+            Our goal is to share useful information.
         </p>
     </section>
 
     <section id="contact">
         <h2>Contact Us</h2>
-        <p>Thank you for visiting Cyber World!</p>
+
+        <p>
+            Welcome to Cyber World.
+            Stay connected with us.
+        </p>
     </section>
 
     <footer>
-        <p>© 2026 Cyber World. All Rights Reserved.</p>
+        <p>Copyright © 2026 Cyber World. All Rights Reserved.</p>
     </footer>
 
 </body>
