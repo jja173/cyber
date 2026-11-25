@@ -1,156 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber World</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<title>Cyber World | Jawad Ahmad</title>
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #07152e;
-            color: white;
-            text-align: center;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
 
-        header {
-            background: #0b2347;
-            padding: 25px;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background: #061225;
+    color: white;
+    line-height: 1.7;
+}
 
-        header h1 {
-            color: #00c8ff;
-            margin-bottom: 15px;
-        }
+header {
+    background: #0b1d38;
+    padding: 22px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 10px;
-            font-size: 16px;
-        }
+header h1 {
+    color: #00d9ff;
+}
 
-        nav a:hover {
-            color: #00c8ff;
-        }
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 10px;
+    font-weight: bold;
+}
 
-        .hero {
-            padding: 60px 20px;
-        }
+nav a:hover {
+    color: #00d9ff;
+}
 
-        .hero h2 {
-            color: #00c8ff;
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
+.hero {
+    text-align: center;
+    padding: 75px 20px;
+    background: radial-gradient(circle, #123b67, #061225 75%);
+}
 
-        .hero p {
-            font-size: 18px;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
+.hero h2 {
+    font-size: 38px;
+    color: #00d9ff;
+    margin-bottom: 20px;
+}
 
-        .hero img {
-            width: 90%;
-            max-width: 650px;
-            border-radius: 15px;
-            margin: 25px auto;
-            display: block;
-        }
+.hero p {
+    max-width: 750px;
+    margin: auto;
+    font-size: 18px;
+}
 
-        .btn {
-            display: inline-block;
-            background: #00aaff;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            margin-top: 15px;
-        }
+.hero img {
+    width: 90%;
+    max-width: 650px;
+    border-radius: 18px;
+    margin: 30px auto;
+    display: block;
+}
 
-        .btn:hover {
-            background: #0077cc;
-        }
+.btn {
+    display: inline-block;
+    background: #00c8ff;
+    color: #061225;
+    padding: 12px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+}
 
-        section {
-            padding: 35px 20px;
-            margin: 20px;
-            background: #102b50;
-            border-radius: 12px;
-        }
+section {
+    background: #102746;
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 45px 25px;
+    border-radius: 18px;
+    text-align: center;
+}
 
-        section h2 {
-            color: #00c8ff;
-            margin-bottom: 15px;
-        }
+section h2 {
+    color: #00d9ff;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
 
-        footer {
-            background: #0b2347;
-            padding: 20px;
-            margin-top: 30px;
-        }
-    </style>
+section p {
+    margin-bottom: 15px;
+    color: #d6e6f5;
+}
+
+/* Profile Design */
+
+.profile-icon {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00d9ff, #174b8a);
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 75px;
+    border: 4px solid #00d9ff;
+}
+
+.profile-name {
+    color: #00d9ff;
+    font-size: 27px;
+    margin-bottom: 15px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background: #18395e;
+    padding: 25px;
+    border-radius: 15px;
+    width: 250px;
+}
+
+.card h3 {
+    color: #00d9ff;
+    margin-bottom: 10px;
+}
+
+.contact a {
+    color: #00d9ff;
+    text-decoration: none;
+}
+
+footer {
+    background: #0b1d38;
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+    color: #c4d6e8;
+}
+
+footer span {
+    color: #00d9ff;
+}
+
+@media(max-width:600px) {
+    header {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    nav a {
+        margin: 5px;
+    }
+
+    .hero h2 {
+        font-size: 28px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <header>
-        <h1>Cyber World</h1>
+<header>
+    <h1>Cyber World</h1>
 
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#technology">Technology</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
 
-    <div class="hero" id="home">
+<!-- HOME -->
 
-        <h2>Welcome to My Cyber World</h2>
+<div class="hero" id="home">
 
-        <p>
-            Welcome to my official website.
-            Here you can learn about technology,
-            computers and the digital world.
-        </p>
+    <h2>Welcome to My Cyber World</h2>
 
-        <img
-            src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000"
-            alt="Computer Technology"
-        >
+    <p>
+        Welcome to my official website.
+        Here you can explore technology,
+        computers, the internet and the digital world.
+        Our mission is to make technology
+        easy and interesting for everyone.
+    </p>
 
-        <a href="#about" class="btn">Explore More</a>
+    <img
+        src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000"
+        alt="Computer Technology"
+    >
+
+    <a href="#about" class="btn">Explore More</a>
+
+</div>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+    <h2>About Cyber World</h2>
+
+    <div class="profile-icon">
+        👨‍💻
+    </div>
+
+    <h3 class="profile-name">Jawad Ahmad</h3>
+
+    <p>
+        Welcome to Cyber World!
+        This website is created by Jawad Ahmad.
+    </p>
+
+    <p>
+        Cyber World is a platform dedicated
+        to technology, computers, internet,
+        cybersecurity and digital knowledge.
+    </p>
+
+    <p>
+        Our goal is to share useful information
+        and help people understand modern technology.
+    </p>
+
+    <p>
+        We believe that learning technology
+        can create a better future.
+    </p>
+
+</section>
+
+<!-- TECHNOLOGY -->
+
+<section id="technology">
+
+    <h2>Explore Technology</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Computer</h3>
+            <p>
+                Learn about computers,
+                hardware and software.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Cyber Security</h3>
+            <p>
+                Discover online safety,
+                privacy and digital security.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Modern Technology</h3>
+            <p>
+                Explore artificial intelligence
+                and new technologies.
+            </p>
+        </div>
 
     </div>
 
-    <section id="about">
-        <h2>About Us</h2>
+</section>
 
-        <p>
-            Cyber World is a website about technology,
-            computers and the digital world.
-            Our goal is to share useful information.
-        </p>
-    </section>
+<!-- CONTACT -->
 
-    <section id="contact">
-        <h2>Contact Us</h2>
+<section id="contact" class="contact">
 
-        <p>
-            Welcome to Cyber World.
-            Stay connected with us.
-        </p>
-    </section>
+    <h2>Contact Us</h2>
 
-    <footer>
-        <p>Copyright © 2026 Cyber World. All Rights Reserved.</p>
-    </footer>
+    <p>
+        Have a question or suggestion?
+        Feel free to contact us.
+    </p>
+
+    <p>
+        <strong>Website Owner:</strong>
+        Jawad Ahmad
+    </p>
+
+    <p>
+        <strong>Email:</strong>
+        Email address will be added soon.
+    </p>
+
+</section>
+
+<footer>
+
+    <p>
+        © 2026 <span>Cyber World</span>.
+        Created by Jawad Ahmad.
+        All Rights Reserved.
+    </p>
+
+</footer>
 
 </body>
 </html>
