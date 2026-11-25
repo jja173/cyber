@@ -80,6 +80,15 @@
       box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.22), 0 0 28px rgba(0, 229, 255, 0.28);
     }
 
+    /* Owner Settings button is hidden from regular visitors by default */
+    #openOwnerPanelBtn {
+      display: none;
+    }
+
+    body.owner-access-visible #openOwnerPanelBtn {
+      display: inline-flex;
+    }
+
     /* Custom scrollbar for clean dark aesthetics */
     ::-webkit-scrollbar {
       width: 8px;
@@ -112,7 +121,7 @@
   <header class="sticky top-0 z-40 w-full border-b border-cyanpulse-400/15 bg-navy-950/90 backdrop-blur-md">
     <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3.5 sm:px-6">
       <!-- Brand / Visitor Badge -->
-      <a href="#home" class="flex items-center gap-2.5 rounded-xl px-2 py-1 text-base font-bold tracking-tight text-white transition hover:text-cyanpulse-400">
+      <a id="brandLogoLink" href="#home" class="flex items-center gap-2.5 rounded-xl px-2 py-1 text-base font-bold tracking-tight text-white transition hover:text-cyanpulse-400">
         <span class="flex h-8 w-8 items-center justify-center rounded-lg border border-cyanpulse-400/40 bg-navy-700 text-cyanpulse-400">
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <rect x="3" y="4" width="18" height="14" rx="2" />
@@ -130,9 +139,9 @@
         <a href="#contact" class="rounded-xl px-3 py-2 text-slate-200 transition hover:bg-navy-700 hover:text-cyanpulse-400">Contact</a>
       </nav>
 
-      <!-- Owner / Admin Settings Button -->
+      <!-- Owner / Admin Settings Button (Shown only to Owner) -->
       <button id="openOwnerPanelBtn" type="button"
-              class="inline-flex items-center gap-2 rounded-xl border border-cyanpulse-400/40 bg-navy-700/90 px-3.5 py-2 text-xs sm:text-sm font-semibold text-cyanpulse-400 transition hover:border-cyanpulse-400 hover:bg-navy-600 focus:outline-none focus:ring-2 focus:ring-cyanpulse-400">
+              class="items-center gap-2 rounded-xl border border-cyanpulse-400/40 bg-navy-700/90 px-3.5 py-2 text-xs sm:text-sm font-semibold text-cyanpulse-400 transition hover:border-cyanpulse-400 hover:bg-navy-600 focus:outline-none focus:ring-2 focus:ring-cyanpulse-400">
         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
@@ -311,6 +320,57 @@
     </div>
   </div>
 
+  <!-- Owner Password Verification Modal -->
+  <div id="ownerAuthModal" role="dialog" aria-modal="true" aria-labelledby="ownerAuthModalTitle"
+       class="fixed inset-0 z-50 hidden items-center justify-center bg-navy-950/85 p-4 backdrop-blur-sm">
+    <div class="relative w-full max-w-md rounded-3xl border border-cyanpulse-400/45 bg-navy-800 p-6 shadow-2xl sm:p-7">
+      <div class="flex items-start justify-between gap-3 border-b border-cyanpulse-400/20 pb-3.5">
+        <div>
+          <span class="inline-block rounded-full bg-cyanpulse-400/15 px-3 py-0.5 text-xs font-bold uppercase tracking-wider text-cyanpulse-400">
+            Owner Verification
+          </span>
+          <h3 id="ownerAuthModalTitle" class="mt-2 text-xl font-extrabold text-white">
+            Jawad Ahmad — Owner Access
+          </h3>
+        </div>
+        <button id="closeOwnerAuthModalBtn" type="button" aria-label="Close owner login"
+                class="rounded-xl border border-slate-600/50 bg-navy-700 p-2 text-slate-300 transition hover:border-cyanpulse-400 hover:text-white">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="ownerAuthForm" class="mt-5 space-y-4">
+        <div>
+          <label for="ownerPasswordInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+            Enter Owner Password
+          </label>
+          <input id="ownerPasswordInput" type="password" required placeholder="Owner password"
+                 class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-cyanpulse-400 focus:outline-none" />
+          <p class="mt-1.5 text-xs text-slate-400">
+            Default password: <code class="text-cyanpulse-400">jawad@2026</code> (can be changed inside Owner Settings).
+          </p>
+        </div>
+
+        <p id="ownerAuthError" class="hidden text-xs font-semibold text-rose-400">
+          Incorrect password. Only the website owner can access Owner Settings.
+        </p>
+
+        <div class="flex justify-end gap-2.5 pt-2">
+          <button id="cancelOwnerAuthBtn" type="button"
+                  class="rounded-xl border border-slate-600/50 bg-navy-700 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:border-cyanpulse-400">
+            Cancel
+          </button>
+          <button type="submit"
+                  class="cyan-glow-btn rounded-xl px-5 py-2 text-xs font-bold">
+            Unlock Owner Settings
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Owner / Admin Settings Modal -->
   <div id="ownerModal" role="dialog" aria-modal="true" aria-labelledby="ownerModalTitle"
        class="fixed inset-0 z-50 hidden items-center justify-center bg-navy-950/85 p-3 sm:p-6 backdrop-blur-sm">
@@ -327,12 +387,18 @@
             Manage your profile photo, ownership details, and add or edit daily technology items across all 4 categories. Changes save automatically to your browser storage (<code class="text-cyanpulse-400">localStorage</code>).
           </p>
         </div>
-        <button id="closeOwnerModalBtn" type="button" aria-label="Close Owner Settings"
-                class="rounded-xl border border-slate-600/50 bg-navy-700 p-2 text-slate-300 transition hover:border-cyanpulse-400 hover:text-white">
-          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path d="M18 6 6 18M6 6l12 12" />
-          </svg>
-        </button>
+        <div class="flex items-center gap-2">
+          <button id="lockOwnerSessionBtn" type="button"
+                  class="rounded-xl border border-rose-400/40 bg-navy-700 px-3 py-2 text-xs font-semibold text-rose-300 transition hover:bg-rose-950/50">
+            Lock Owner
+          </button>
+          <button id="closeOwnerModalBtn" type="button" aria-label="Close Owner Settings"
+                  class="rounded-xl border border-slate-600/50 bg-navy-700 p-2 text-slate-300 transition hover:border-cyanpulse-400 hover:text-white">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- Tabs inside Owner Panel -->
@@ -515,6 +581,14 @@
                       class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white focus:border-cyanpulse-400 focus:outline-none"></textarea>
           </div>
 
+          <div>
+            <label for="settingOwnerPassword" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              Owner Access Password
+            </label>
+            <input id="settingOwnerPassword" type="text" required
+                   class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white focus:border-cyanpulse-400 focus:outline-none" />
+          </div>
+
           <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
             <button id="restoreDefaultAllBtn" type="button"
                     class="rounded-xl border border-rose-400/40 bg-navy-900 px-4 py-2 text-xs font-semibold text-rose-300 transition hover:bg-rose-950/50">
@@ -538,6 +612,7 @@
      * add/edit daily technology items and ownership settings anytime.
      */
     const STORAGE_KEY = 'cyber_world_state_v1';
+    const OWNER_SESSION_KEY = 'cyber_world_owner_verified_v1';
 
     const DEFAULT_STATE = {
       settings: {
@@ -548,6 +623,7 @@
         ownerRole: 'Founder & Website Owner',
         contactEmail: 'jawadahmad44@icloud.com',
         profileImageSrc: 'image_87339e.jpg',
+        ownerPassword: 'jawad@2026',
         aboutParagraphs: [
           'Welcome to Cyber World. This website is created by Jawad Ahmad.',
           'Cyber World is a platform dedicated to technology, computers, the internet, cybersecurity and digital knowledge. Our goal is to share useful information and help people understand modern technology. We believe learning technology can create a better future.'
@@ -617,6 +693,25 @@
 
     let appState = loadAppState();
     let toastTimeout = null;
+    let brandClickCounter = 0;
+    let isOwnerVerified = sessionStorage.getItem(OWNER_SESSION_KEY) === 'true';
+
+    function syncOwnerButtonVisibility() {
+      const hashMatchesOwner = window.location.hash === '#owner';
+      if (hashMatchesOwner || isOwnerVerified) {
+        document.body.classList.add('owner-access-visible');
+      } else {
+        document.body.classList.remove('owner-access-visible');
+      }
+    }
+
+    function requireOwnerAccess() {
+      if (!isOwnerVerified) {
+        openOwnerAuthModal();
+        return false;
+      }
+      return true;
+    }
 
     /**
      * Loads saved state from localStorage safely with fallback to DEFAULT_STATE.
@@ -836,6 +931,7 @@
         });
       });
 
+      syncOwnerButtonVisibility();
       renderManagePostsList();
     }
 
@@ -882,10 +978,27 @@
       modal.classList.remove('flex');
     }
 
+    function openOwnerAuthModal() {
+      document.getElementById('ownerPasswordInput').value = '';
+      document.getElementById('ownerAuthError').classList.add('hidden');
+      const modal = document.getElementById('ownerAuthModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.getElementById('ownerPasswordInput').focus();
+    }
+
+    function closeOwnerAuthModal() {
+      const modal = document.getElementById('ownerAuthModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
     /**
      * Opens Owner Settings modal and populates current settings fields.
      */
     function openOwnerModal() {
+      if (!requireOwnerAccess()) return;
+
       const { settings } = appState;
       document.getElementById('settingSiteName').value = settings.siteName;
       document.getElementById('settingOwnerName').value = settings.ownerName;
@@ -893,6 +1006,7 @@
       document.getElementById('settingContactEmail').value = settings.contactEmail;
       document.getElementById('settingHeroSubtitle').value = settings.heroSubtitle;
       document.getElementById('settingAboutText').value = settings.aboutParagraphs.join('\n\n');
+      document.getElementById('settingOwnerPassword').value = settings.ownerPassword || 'jawad@2026';
 
       if (!document.getElementById('postDateInput').value) {
         document.getElementById('postDateInput').value = new Date().toISOString().slice(0, 10);
@@ -908,6 +1022,14 @@
       const modal = document.getElementById('ownerModal');
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+    }
+
+    function lockOwnerSession() {
+      isOwnerVerified = false;
+      sessionStorage.removeItem(OWNER_SESSION_KEY);
+      closeOwnerModal();
+      syncOwnerButtonVisibility();
+      showToast('Owner session locked.');
     }
 
     /**
@@ -992,6 +1114,7 @@
      * Populates the post form with an existing item for editing.
      */
     function startEditingPost(postId) {
+      if (!requireOwnerAccess()) return;
       const post = appState.posts.find((p) => p.id === postId);
       if (!post) return;
 
@@ -1020,6 +1143,7 @@
     }
 
     function deletePostById(postId) {
+      if (!requireOwnerAccess()) return;
       appState.posts = appState.posts.filter((p) => p.id !== postId);
       saveAppState();
       renderAll();
@@ -1030,11 +1154,57 @@
      * Wires up all DOM event listeners.
      */
     function bindEvents() {
-      document.getElementById('openOwnerPanelBtn').addEventListener('click', openOwnerModal);
+      // Secret Owner reveal: 5 clicks on brand logo or #owner URL hash
+      document.getElementById('brandLogoLink').addEventListener('click', () => {
+        brandClickCounter += 1;
+        if (brandClickCounter >= 5) {
+          brandClickCounter = 0;
+          document.body.classList.add('owner-access-visible');
+          openOwnerAuthModal();
+        }
+      });
+
+      window.addEventListener('hashchange', () => {
+        syncOwnerButtonVisibility();
+        if (window.location.hash === '#owner' && !isOwnerVerified) {
+          openOwnerAuthModal();
+        }
+      });
+
+      document.getElementById('openOwnerPanelBtn').addEventListener('click', () => {
+        if (!isOwnerVerified) {
+          openOwnerAuthModal();
+        } else {
+          openOwnerModal();
+        }
+      });
+
+      document.getElementById('closeOwnerAuthModalBtn').addEventListener('click', closeOwnerAuthModal);
+      document.getElementById('cancelOwnerAuthBtn').addEventListener('click', closeOwnerAuthModal);
       document.getElementById('closeOwnerModalBtn').addEventListener('click', closeOwnerModal);
+      document.getElementById('lockOwnerSessionBtn').addEventListener('click', lockOwnerSession);
       document.getElementById('closeCategoryModalBtn').addEventListener('click', closeCategoryModal);
 
+      document.getElementById('ownerAuthForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const entered = document.getElementById('ownerPasswordInput').value;
+        const expected = appState.settings.ownerPassword || 'jawad@2026';
+        if (entered === expected) {
+          isOwnerVerified = true;
+          sessionStorage.setItem(OWNER_SESSION_KEY, 'true');
+          document.body.classList.add('owner-access-visible');
+          closeOwnerAuthModal();
+          openOwnerModal();
+          showToast('Owner access unlocked.');
+        } else {
+          document.getElementById('ownerAuthError').classList.remove('hidden');
+        }
+      });
+
       // Backdrop click close
+      document.getElementById('ownerAuthModal').addEventListener('click', (e) => {
+        if (e.target.id === 'ownerAuthModal') closeOwnerAuthModal();
+      });
       document.getElementById('ownerModal').addEventListener('click', (e) => {
         if (e.target.id === 'ownerModal') closeOwnerModal();
       });
@@ -1045,6 +1215,7 @@
       // Escape key close
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
+          closeOwnerAuthModal();
           closeOwnerModal();
           closeCategoryModal();
         }
@@ -1063,6 +1234,7 @@
       // Add / Update daily post form
       document.getElementById('dailyPostForm').addEventListener('submit', (e) => {
         e.preventDefault();
+        if (!requireOwnerAccess()) return;
         try {
           const editingId = document.getElementById('editingPostId').value.trim();
           const categoryId = document.getElementById('postCategorySelect').value;
@@ -1109,6 +1281,7 @@
 
       // Profile Photo Upload handler
       document.getElementById('profilePhotoUploadInput').addEventListener('change', (e) => {
+        if (!requireOwnerAccess()) return;
         const file = e.target.files?.[0];
         if (!file) return;
         const reader = new FileReader();
@@ -1125,6 +1298,7 @@
 
       // Reset photo path to image_87339e.jpg
       document.getElementById('resetPhotoToDefaultFileBtn').addEventListener('click', () => {
+        if (!requireOwnerAccess()) return;
         appState.settings.profileImageSrc = 'image_87339e.jpg';
         saveAppState();
         renderAll();
@@ -1134,6 +1308,7 @@
       // Ownership settings form submit
       document.getElementById('ownershipSettingsForm').addEventListener('submit', (e) => {
         e.preventDefault();
+        if (!requireOwnerAccess()) return;
         try {
           const siteName = document.getElementById('settingSiteName').value.trim() || 'Cyber World';
           const ownerName = document.getElementById('settingOwnerName').value.trim() || 'Jawad Ahmad';
@@ -1141,6 +1316,7 @@
           const contactEmail = document.getElementById('settingContactEmail').value.trim() || 'jawadahmad44@icloud.com';
           const heroSubtitle = document.getElementById('settingHeroSubtitle').value.trim();
           const aboutRaw = document.getElementById('settingAboutText').value.trim();
+          const ownerPassword = document.getElementById('settingOwnerPassword').value.trim() || appState.settings.ownerPassword || 'jawad@2026';
 
           const paragraphs = aboutRaw
             .split(/\n\s*\n/)
@@ -1154,6 +1330,7 @@
             ownerName,
             ownerRole,
             contactEmail,
+            ownerPassword,
             heroSubtitle: heroSubtitle || DEFAULT_STATE.settings.heroSubtitle,
             aboutParagraphs: paragraphs.length ? paragraphs : DEFAULT_STATE.settings.aboutParagraphs
           };
@@ -1169,6 +1346,7 @@
 
       // Restore defaults button
       document.getElementById('restoreDefaultAllBtn').addEventListener('click', () => {
+        if (!requireOwnerAccess()) return;
         appState = structuredClone(DEFAULT_STATE);
         saveAppState();
         renderAll();
@@ -1195,8 +1373,12 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('postDateInput').value = new Date().toISOString().slice(0, 10);
+      syncOwnerButtonVisibility();
       bindEvents();
       renderAll();
+      if (window.location.hash === '#owner' && !isOwnerVerified) {
+        openOwnerAuthModal();
+      }
     });
   </script>
 </body>
