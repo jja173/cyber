@@ -1,717 +1,1156 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CYBER WORLD - Jawad Ahmad</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-:root {
---bg-dark: #030604;
---card-bg: rgba(8, 18, 12, 0.85);
---neon-green: #00ff66;
---neon-dim: rgba(0, 255, 102, 0.15);
---text-main: #c8e6d0;
---text-muted: #6c8f78;
---border-color: rgba(0, 255, 102, 0.25);
-}
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: 'JetBrains Mono', monospace;
-font-style: italic;
-font-weight: 300;
-}
-body {
-background-color: var(--bg-dark);
-color: var(--text-main);
-font-size: 13px;
-line-height: 1.6;
-overflow-x: hidden;
-position: relative;
-}
-/* Animated Black/Green Circuit Chip Background */
-#circuit-bg {
-position: fixed;
-top: 0;
-left: 0;
-width: 100vw;
-height: 100vh;
-z-index: -1;
-background: radial-gradient(circle at center, #07140c 0%, #020403 100%);
-}
-/* Header & Navigation */
-header {
-display: grid;
-grid-template-columns: 1fr auto 1fr;
-align-items: center;
-padding: 18px 40px;
-background: rgba(3, 6, 4, 0.9);
-border-bottom: 1px solid var(--border-color);
-backdrop-filter: blur(8px);
-position: sticky;
-top: 0;
-z-index: 100;
-}
-nav {
-justify-self: start;
-display: flex;
-gap: 22px;
-}
-nav a {
-color: var(--text-main);
-text-decoration: none;
-font-size: 12px;
-letter-spacing: 1px;
-transition: color 0.3s, text-shadow 0.3s;
-}
-nav a:hover {
-color: var(--neon-green);
-text-shadow: 0 0 8px var(--neon-green);
-}
-.brand-title {
-justify-self: center;
-font-size: 20px;
-font-weight: 500;
-color: var(--neon-green);
-letter-spacing: 4px;
-text-shadow: 0 0 12px rgba(0, 255, 102, 0.4);
-}
-.header-spacer {
-justify-self: end;
-}
-/* Main Container */
-main {
-max-width: 1100px;
-margin: 0 auto;
-padding: 40px 20px;
-}
-/* Hero / Owner Section */
-.hero-section {
-display: flex;
-flex-direction: column;
-align-items: center;
-text-align: center;
-padding: 40px 20px;
-background: var(--card-bg);
-border: 1px solid var(--border-color);
-border-radius: 8px;
-margin-bottom: 40px;
-box-shadow: 0 0 25px rgba(0, 255, 102, 0.05);
-}
-.profile-frame {
-width: 110px;
-height: 110px;
-border-radius: 50%;
-border: 1.5px solid var(--neon-green);
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-margin-bottom: 15px;
-background: #050f09;
-box-shadow: 0 0 15px rgba(0, 255, 102, 0.25);
-}
-.profile-frame img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-}
-.profile-frame i {
-font-size: 46px;
-color: var(--neon-green);
-}
-.owner-name {
-font-size: 16px;
-color: var(--neon-green);
-letter-spacing: 1.5px;
-margin-bottom: 4px;
-}
-.owner-role {
-font-size: 11px;
-color: var(--text-muted);
-margin-bottom: 15px;
-}
-.hero-bio {
-max-width: 600px;
-font-size: 12px;
-color: var(--text-main);
-}
-/* Sections */
-.section-heading {
-font-size: 15px;
-color: var(--neon-green);
-border-left: 2px solid var(--neon-green);
-padding-left: 10px;
-margin: 35px 0 20px 0;
-letter-spacing: 1.5px;
-}
-/* Category Filter Tabs */
-.category-tabs {
-display: flex;
-flex-wrap: wrap;
-gap: 10px;
-margin-bottom: 25px;
-}
-.tab-btn {
-background: transparent;
-border: 1px solid var(--border-color);
-color: var(--text-main);
-padding: 6px 14px;
-font-size: 11px;
-cursor: pointer;
-border-radius: 4px;
-transition: all 0.25s;
-}
-.tab-btn.active, .tab-btn:hover {
-background: var(--neon-dim);
-border-color: var(--neon-green);
-color: var(--neon-green);
-}
-/* Updates Grid */
-.updates-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-gap: 20px;
-}
-.update-card {
-background: var(--card-bg);
-border: 1px solid var(--border-color);
-border-radius: 6px;
-padding: 18px;
-position: relative;
-transition: transform 0.2s, border-color 0.2s;
-}
-.update-card:hover {
-border-color: var(--neon-green);
-transform: translateY(-2px);
-}
-.card-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 10px;
-}
-.card-tag {
-font-size: 10px;
-color: var(--neon-green);
-background: var(--neon-dim);
-padding: 2px 8px;
-border-radius: 3px;
-border: 1px solid rgba(0, 255, 102, 0.3);
-}
-.card-date {
-font-size: 10px;
-color: var(--text-muted);
-}
-.card-title {
-font-size: 14px;
-font-weight: 400;
-color: #ffffff;
-margin-bottom: 8px;
-}
-.card-body {
-font-size: 12px;
-color: var(--text-main);
-}
-/* Three-Dot Menu (Hidden unless Admin Mode Active) */
-.card-menu-wrapper {
-position: relative;
-display: none;
-}
-body.admin-active .card-menu-wrapper {
-display: inline-block;
-}
-.three-dots-btn {
-background: none;
-border: none;
-color: var(--text-muted);
-cursor: pointer;
-padding: 2px 6px;
-font-size: 13px;
-}
-.three-dots-btn:hover {
-color: var(--neon-green);
-}
-.card-dropdown {
-display: none;
-position: absolute;
-right: 0;
-top: 22px;
-background: #07120b;
-border: 1px solid var(--neon-green);
-border-radius: 4px;
-z-index: 20;
-min-width: 100px;
-}
-.card-dropdown.show {
-display: block;
-}
-.delete-option {
-width: 100%;
-background: none;
-border: none;
-color: #ff4d4d;
-padding: 7px 12px;
-text-align: left;
-font-size: 11px;
-cursor: pointer;
-}
-.delete-option:hover {
-background: rgba(255, 77, 77, 0.15);
-}
-/* Info & Contact Cards */
-.info-box {
-background: var(--card-bg);
-border: 1px solid var(--border-color);
-padding: 20px;
-border-radius: 6px;
-font-size: 12px;
-}
-/* Owner Console (Hidden by Default) */
-#owner-console {
-display: none;
-background: #040d07;
-border: 1px solid var(--neon-green);
-border-radius: 8px;
-padding: 25px;
-margin: 30px 0;
-box-shadow: 0 0 30px rgba(0, 255, 102, 0.15);
-}
-body.admin-active #owner-console {
-display: block;
-}
-.console-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-border-bottom: 1px solid var(--border-color);
-padding-bottom: 10px;
-margin-bottom: 20px;
-}
-.console-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 25px;
-}
-.console-panel {
-background: rgba(0, 255, 102, 0.03);
-border: 1px solid var(--border-color);
-padding: 15px;
-border-radius: 6px;
-}
-.console-panel h4 {
-color: var(--neon-green);
-font-size: 13px;
-margin-bottom: 12px;
-}
-.form-group {
-margin-bottom: 12px;
-}
-.form-group label {
-display: block;
-font-size: 11px;
-color: var(--text-muted);
-margin-bottom: 4px;
-}
-.form-control {
-width: 100%;
-background: #020503;
-border: 1px solid var(--border-color);
-color: var(--text-main);
-padding: 8px 10px;
-font-size: 12px;
-border-radius: 4px;
-}
-.form-control:focus {
-outline: none;
-border-color: var(--neon-green);
-}
-.btn-neon {
-background: var(--neon-dim);
-border: 1px solid var(--neon-green);
-color: var(--neon-green);
-padding: 7px 15px;
-font-size: 11px;
-cursor: pointer;
-border-radius: 4px;
-transition: all 0.2s;
-}
-.btn-neon:hover {
-background: var(--neon-green);
-color: #020503;
-}
-.btn-danger {
-background: rgba(255, 77, 77, 0.1);
-border: 1px solid #ff4d4d;
-color: #ff4d4d;
-padding: 6px 12px;
-font-size: 11px;
-cursor: pointer;
-border-radius: 4px;
-}
-/* Password Modal */
-#auth-modal {
-display: none;
-position: fixed;
-inset: 0;
-background: rgba(0, 0, 0, 0.85);
-z-index: 999;
-align-items: center;
-justify-content: center;
-}
-.modal-box {
-background: #050f08;
-border: 1px solid var(--neon-green);
-padding: 25px;
-border-radius: 6px;
-width: 300px;
-text-align: center;
-}
-/* Footer & Stealth Trigger */
-footer {
-text-align: center;
-padding: 25px;
-border-top: 1px solid var(--border-color);
-font-size: 11px;
-color: var(--text-muted);
-margin-top: 50px;
-}
-#stealth-trigger {
-color: #163020;
-cursor: pointer;
-margin-left: 8px;
-user-select: none;
-transition: color 0.3s;
-}
-#stealth-trigger:hover {
-color: var(--neon-green);
-}
-@media (max-width: 768px) {
-header {
-grid-template-columns: 1fr;
-gap: 12px;
-text-align: center;
-}
-nav {
-justify-self: center;
-}
-.header-spacer {
-display: none;
-}
-.console-grid {
-grid-template-columns: 1fr;
-}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBER WORLD - Jawad Ahmed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-black: #030508;
+            --card-bg: rgba(7, 13, 22, 0.9);
+            --cyber-blue: #00d2ff;
+            --cyber-green: #00ff88;
+            --blue-dim: rgba(0, 210, 255, 0.12);
+            --green-dim: rgba(0, 255, 136, 0.12);
+            --text-primary: #e2ecf5;
+            --text-muted: #829ab3;
+            --border-blue: rgba(0, 210, 255, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-primary);
+            font-size: 14px;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #chip-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 25%, #06111e 0%, #020305 100%);
+        }
+
+        header {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 16px 40px;
+            background: rgba(3, 5, 8, 0.94);
+            border-bottom: 1px solid var(--border-blue);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            justify-self: start;
+            display: flex;
+            gap: 24px;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+            transition: color 0.25s, text-shadow 0.25s;
+        }
+
+        nav a:hover {
+            color: var(--cyber-blue);
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.6);
+        }
+
+        .brand-title {
+            justify-self: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, var(--cyber-blue), var(--cyber-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 210, 255, 0.25);
+        }
+
+        .header-right {
+            justify-self: end;
+        }
+
+        .github-header-link {
+            color: var(--text-muted);
+            font-size: 18px;
+            transition: color 0.25s;
+            text-decoration: none;
+        }
+
+        .github-header-link:hover {
+            color: var(--cyber-green);
+        }
+
+        main {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 36px 20px;
+        }
+
+        .hero-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 44px 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-blue);
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 0 35px rgba(0, 210, 255, 0.08);
+        }
+
+        .avatar-ring {
+            width: 124px;
+            height: 124px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-green));
+            margin-bottom: 18px;
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.35);
+        }
+
+        .avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #040911;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .avatar-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .owner-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+        }
+
+        .owner-subtitle {
+            font-size: 12.5px;
+            color: var(--cyber-green);
+            font-weight: 500;
+            margin-bottom: 14px;
+        }
+
+        .hero-desc {
+            max-width: 650px;
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .social-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 15px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            color: var(--text-primary);
+            background: rgba(0, 210, 255, 0.08);
+            border: 1px solid var(--border-blue);
+            transition: all 0.25s;
+        }
+
+        .social-pill:hover {
+            border-color: var(--cyber-green);
+            color: var(--cyber-green);
+            background: var(--green-dim);
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--cyber-blue);
+            border-left: 3px solid var(--cyber-green);
+            padding-left: 12px;
+            margin: 40px 0 20px 0;
+            letter-spacing: 1px;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .filter-btn {
+            background: rgba(7, 13, 22, 0.8);
+            border: 1px solid var(--border-blue);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            font-size: 12.5px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--blue-dim);
+            border-color: var(--cyber-blue);
+            color: var(--cyber-blue);
+            box-shadow: 0 0 12px rgba(0, 210, 255, 0.2);
+        }
+
+        .feed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 22px;
+        }
+
+        .tech-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-blue);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+        }
+
+        .tech-card:hover {
+            border-color: var(--cyber-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 210, 255, 0.12);
+        }
+
+        .card-media {
+            width: 100%;
+            height: 165px;
+            background: linear-gradient(135deg, #061322 0%, #041711 100%);
+            border-bottom: 1px solid var(--border-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-media i.fallback-icon {
+            font-size: 44px;
+            background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.85;
+        }
+
+        .card-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--cyber-green);
+            background: var(--green-dim);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            padding: 3px 9px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .post-date {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .card-heading {
+            font-size: 15.5px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .card-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Owner-Only Three-Dot Menu */
+        .admin-menu-box {
+            display: none;
+            position: relative;
+        }
+
+        body.owner-unlocked .admin-menu-box {
+            display: inline-block;
+        }
+
+        .dots-trigger {
+            background: rgba(0, 210, 255, 0.08);
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: var(--text-primary);
+            cursor: pointer;
+            padding: 4px 8px;
+            font-size: 13px;
+        }
+
+        .dots-trigger:hover {
+            border-color: var(--cyber-blue);
+            color: var(--cyber-blue);
+        }
+
+        .dropdown-panel {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 28px;
+            background: #050b14;
+            border: 1px solid var(--cyber-blue);
+            border-radius: 6px;
+            z-index: 50;
+            min-width: 120px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.85);
+        }
+
+        .dropdown-panel.open {
+            display: block;
+        }
+
+        .del-btn {
+            width: 100%;
+            background: none;
+            border: none;
+            color: #ff4d6d;
+            padding: 9px 12px;
+            text-align: left;
+            font-size: 12.5px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .del-btn:hover {
+            background: rgba(255, 77, 109, 0.15);
+        }
+
+        /* Owner Console (Hidden from Visitors) */
+        #owner-console {
+            display: none;
+            background: #040a12;
+            border: 1px solid var(--cyber-green);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 36px;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.14);
+        }
+
+        body.owner-unlocked #owner-console {
+            display: block;
+        }
+
+        .console-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-blue);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .console-top span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13.5px;
+            color: var(--cyber-green);
+            font-weight: 600;
+        }
+
+        .console-columns {
+            display: grid;
+            grid-template-columns: 1fr 1.35fr;
+            gap: 24px;
+        }
+
+        .panel-box {
+            background: rgba(0, 210, 255, 0.03);
+            border: 1px solid var(--border-blue);
+            padding: 18px;
+            border-radius: 8px;
+        }
+
+        .panel-box h4 {
+            font-size: 14px;
+            color: var(--cyber-blue);
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+
+        .field-group {
+            margin-bottom: 12px;
+        }
+
+        .field-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .input-field {
+            width: 100%;
+            background: #020408;
+            border: 1px solid var(--border-blue);
+            color: var(--text-primary);
+            padding: 9px 12px;
+            font-size: 13px;
+            border-radius: 6px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--cyber-blue);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, rgba(0, 210, 255, 0.2), rgba(0, 255, 136, 0.2));
+            border: 1px solid var(--cyber-blue);
+            color: #ffffff;
+            padding: 9px 18px;
+            font-size: 12.5px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--cyber-blue);
+            color: #020408;
+            font-weight: 600;
+        }
+
+        .btn-red {
+            background: rgba(255, 77, 109, 0.12);
+            border: 1px solid #ff4d6d;
+            color: #ff4d6d;
+            padding: 8px 14px;
+            font-size: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-red:hover {
+            background: #ff4d6d;
+            color: #ffffff;
+        }
+
+        .content-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--border-blue);
+            border-radius: 10px;
+            padding: 24px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .contact-info p {
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-size: 13.5px;
+        }
+
+        .contact-links-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .email-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--blue-dim);
+            border: 1px solid var(--cyber-blue);
+            color: var(--cyber-blue);
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12.5px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .email-chip:hover {
+            background: rgba(0, 210, 255, 0.22);
+        }
+
+        .status-msg {
+            margin-top: 10px;
+            font-size: 12.5px;
+            color: var(--cyber-green);
+            display: none;
+        }
+
+        #auth-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-box {
+            background: #050b14;
+            border: 1px solid var(--cyber-blue);
+            padding: 28px;
+            border-radius: 10px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 0 35px rgba(0, 210, 255, 0.25);
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px 20px;
+            border-top: 1px solid var(--border-blue);
+            color: var(--text-muted);
+            font-size: 12.5px;
+            margin-top: 54px;
+        }
+
+        footer a {
+            color: var(--cyber-blue);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        #owner-trigger {
+            color: #0e1b2e;
+            cursor: pointer;
+            margin-left: 8px;
+            user-select: none;
+            font-size: 14px;
+        }
+
+        #owner-trigger:hover {
+            color: var(--cyber-blue);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                text-align: center;
+                padding: 14px 20px;
+            }
+            nav {
+                justify-self: center;
+                gap: 18px;
+            }
+            .header-right {
+                display: none;
+            }
+            .console-columns, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-<canvas id="circuit-bg"></canvas>
-<!-- Header -->
-<header>
-<nav>
-<a href="#home">Home</a>
-<a href="#about">About</a>
-<a href="#technology">Technology</a>
-<a href="#contact">Contact</a>
-</nav>
-<div class="brand-title">CYBER WORLD</div>
-<div class="header-spacer"></div>
-</header>
-<main id="home">
-<!-- Hero / Owner Profile -->
-<section class="hero-section">
-<div class="profile-frame" id="profile-display">
-<i class="fas fa-user-secret"></i>
-</div>
-<div class="owner-name">JAWAD AHMAD</div>
-<div class="owner-role">Founder & Systems Architect // Cyber World</div>
-<p class="hero-bio">
-Exploring the frontiers of Cybersecurity, Global Networks, Computer Science fundamentals, and Artificial Intelligence. Daily intelligence and technical briefings curated for the digital era.
-</p>
-</section>
-<!-- Hidden Owner Console (Visible Only After Auth) -->
-<section id="owner-console">
-<div class="console-header">
-<span style="color: var(--neon-green); font-size: 13px;">[ROOT_ACCESS // OWNER_CONSOLE]</span>
-<button class="btn-danger" onclick="logoutOwner()">Lock Console</button>
-</div>
-<div class="console-grid">
-<!-- Profile Picture Editor -->
-<div class="console-panel">
-<h4>01. Profile Picture Editor</h4>
-<div class="form-group">
-<label>Upload Custom Avatar (JPG/PNG)</label>
-<input type="file" id="avatar-input" accept="image/*" class="form-control">
-</div>
-<button class="btn-neon" onclick="updateAvatar()">Save Picture</button>
-<button class="btn-danger" onclick="resetAvatar()" style="margin-left: 6px;">Reset Icon</button>
-</div>
-<!-- Publish Daily Update -->
-<div class="console-panel">
-<h4>02. Publish Daily Tech Update</h4>
-<div class="form-group">
-<label>Domain</label>
-<select id="post-category" class="form-control">
-<option value="Cybersecurity">Cybersecurity</option>
-<option value="Internet">Internet</option>
-<option value="Computer Science">Computer Science</option>
-<option value="AI">AI</option>
-</select>
-</div>
-<div class="form-group">
-<label>Headline</label>
-<input type="text" id="post-title" placeholder="Enter update title..." class="form-control">
-</div>
-<div class="form-group">
-<label>Technical Brief</label>
-<textarea id="post-body" rows="3" placeholder="Write briefing details..." class="form-control"></textarea>
-</div>
-<button class="btn-neon" onclick="publishPost()">Publish Update</button>
-</div>
-</div>
-</section>
-<!-- Technology Updates Feed -->
-<section id="technology">
-<h2 class="section-heading">TECHNOLOGY INTELLIGENCE FEED</h2>
-<div class="category-tabs">
-<button class="tab-btn active" onclick="filterPosts('All', this)">All Streams</button>
-<button class="tab-btn" onclick="filterPosts('Cybersecurity', this)">Cybersecurity</button>
-<button class="tab-btn" onclick="filterPosts('Internet', this)">Internet</button>
-<button class="tab-btn" onclick="filterPosts('Computer Science', this)">Computer Science</button>
-<button class="tab-btn" onclick="filterPosts('AI', this)">AI</button>
-</div>
-<div class="updates-grid" id="updates-container"></div>
-</section>
-<!-- About Section -->
-<section id="about">
-<h2 class="section-heading">ABOUT CYBER WORLD</h2>
-<div class="info-box">
-Cyber World is an independent digital knowledge hub managed by Jawad Ahmad, dedicated to tracking zero-day vulnerabilities, decentralized network architectures, algorithmic breakthroughs, and modern artificial intelligence systems.
-</div>
-</section>
-<!-- Contact Section -->
-<section id="contact">
-<h2 class="section-heading">SECURE CONTACT</h2>
-<div class="info-box">
-Direct Inquiries & Collaborations: <span style="color: var(--neon-green);">jawad.cyberworld@proton.me</span>
-</div>
-</section>
-</main>
-<!-- Footer with Stealth Admin Trigger -->
-<footer>
-© 2026 CYBER WORLD. All Systems Operational.
-<span id="stealth-trigger" onclick="openAuthModal()" title="">π</span>
-</footer>
-<!-- Password Authentication Modal -->
-<div id="auth-modal">
-<div class="modal-box">
-<div style="color: var(--neon-green); margin-bottom: 12px; font-size: 12px;">ENTER OWNER PASSKEY</div>
-<input type="password" id="passkey-input" class="form-control" placeholder="••••••••" style="margin-bottom: 12px; text-align: center;">
-<div style="display: flex; gap: 8px; justify-content: center;">
-<button class="btn-neon" onclick="verifyOwner()">Unlock</button>
-<button class="btn-danger" onclick="closeAuthModal()">Cancel</button>
-</div>
-</div>
-</div>
-<script>
-const VALID_HASH = "8882058b07909271005591315826800668757051588055090837835398750351";
-async function sha256(message) {
-const msgBuffer = new TextEncoder().encode(message);
-const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-const hashArray = Array.from(new Uint8Array(hashBuffer));
-return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-function openAuthModal() {
-if (sessionStorage.getItem('cw_owner_auth') === 'true') return;
-document.getElementById('auth-modal').style.display = 'flex';
-document.getElementById('passkey-input').value = '';
-document.getElementById('passkey-input').focus();
-}
-function closeAuthModal() {
-document.getElementById('auth-modal').style.display = 'none';
-}
-async function verifyOwner() {
-const input = document.getElementById('passkey-input').value;
-const inputHash = await sha256(input);
-if (inputHash === VALID_HASH || input === "cyber2026") {
-sessionStorage.setItem('cw_owner_auth', 'true');
-document.body.classList.add('admin-active');
-closeAuthModal();
-} else {
-alert("Access Denied.");
-closeAuthModal();
-}
-}
-function logoutOwner() {
-sessionStorage.removeItem('cw_owner_auth');
-document.body.classList.remove('admin-active');
-}
-if (sessionStorage.getItem('cw_owner_auth') === 'true') {
-document.body.classList.add('admin-active');
-}
-document.addEventListener('keydown', (e) => {
-if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'l') {
-openAuthModal();
-}
-});
-function loadAvatar() {
-const savedAvatar = localStorage.getItem('cw_owner_avatar');
-const container = document.getElementById('profile-display');
-if (savedAvatar) {
-container.innerHTML = <img src="${savedAvatar}" alt="Jawad Ahmad">;
-} else {
-container.innerHTML = <i class="fas fa-user-secret"></i>;
-}
-}
-function updateAvatar() {
-const fileInput = document.getElementById('avatar-input');
-if (!fileInput.files || !fileInput.files[0]) return;
-const reader = new FileReader();
-reader.onload = function(e) {
-localStorage.setItem('cw_owner_avatar', e.target.result);
-loadAvatar();
-};
-reader.readAsDataURL(fileInput.files[0]);
-}
-function resetAvatar() {
-localStorage.removeItem('cw_owner_avatar');
-loadAvatar();
-}
-const defaultPosts = [
-{
-id: 1,
-category: "Cybersecurity",
-title: "Zero-Trust Architecture in Cloud Infrastructures",
-body: "Enforcing continuous identity verification and micro-segmentation eliminates lateral movement risks across hybrid enterprise networks.",
-date: "2026-11-25"
-},
-{
-id: 2,
-category: "AI",
-title: "Autonomous Neural Reasoning Agents",
-body: "Next-generation multi-agent frameworks demonstrate verifiable step-by-step code synthesis and automated vulnerability patching.",
-date: "2026-11-24"
-},
-{
-id: 3,
-category: "Internet",
-title: "Post-Quantum TLS Handshake Adoption",
-body: "Global backbone providers accelerate deployment of hybrid lattice-based key exchanges to mitigate harvest-now-decrypt-later threats.",
-date: "2026-11-23"
-},
-{
-id: 4,
-category: "Computer Science",
-title: "Neuromorphic Silicon & Spiking Networks",
-body: "Event-driven hardware architectures drastically reduce energy overhead for real-time edge inference compared to traditional von Neumann designs.",
-date: "2026-11-22"
-}
-];
-let posts = JSON.parse(localStorage.getItem('cw_tech_posts')) || defaultPosts;
-let currentFilter = 'All';
-function savePosts() {
-localStorage.setItem('cw_tech_posts', JSON.stringify(posts));
-}
-function renderPosts() {
-const container = document.getElementById('updates-container');
-container.innerHTML = '';
-const filtered = currentFilter === 'All'
-? posts
-: posts.filter(p => p.category === currentFilter);
-filtered.forEach(post => {
-const card = document.createElement('div');
-card.className = 'update-card';
-card.innerHTML = <div class="card-header"> <span class="card-tag">${post.category}</span> <div style="display:flex; align-items:center; gap:8px;"> <span class="card-date">${post.date}</span> <div class="card-menu-wrapper"> <button class="three-dots-btn" onclick="toggleDropdown(event, ${post.id})"> <i class="fas fa-ellipsis-v"></i> </button> <div class="card-dropdown" id="dropdown-${post.id}"> <button class="delete-option" onclick="deletePost(${post.id})"> <i class="fas fa-trash-alt"></i> Delete </button> </div> </div> </div> </div> <div class="card-title">${post.title}</div> <div class="card-body">${post.body}</div>;
-container.appendChild(card);
-});
-}
-function filterPosts(category, btn) {
-currentFilter = category;
-document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-btn.classList.add('active');
-renderPosts();
-}
-function publishPost() {
-const category = document.getElementById('post-category').value;
-const title = document.getElementById('post-title').value.trim();
-const body = document.getElementById('post-body').value.trim();
-if (!title || !body) return;
-const newPost = {
-id: Date.now(),
-category,
-title,
-body,
-date: new Date().toISOString().split('T')[0]
-};
-posts.unshift(newPost);
-savePosts();
-renderPosts();
-document.getElementById('post-title').value = '';
-document.getElementById('post-body').value = '';
-}
-function toggleDropdown(event, id) {
-event.stopPropagation();
-document.querySelectorAll('.card-dropdown').forEach(d => {
-if (d.id !== dropdown-${id}) d.classList.remove('show');
-});
-document.getElementById(dropdown-${id}).classList.toggle('show');
-}
-function deletePost(id) {
-posts = posts.filter(p => p.id !== id);
-savePosts();
-renderPosts();
-}
-window.addEventListener('click', () => {
-document.querySelectorAll('.card-dropdown').forEach(d => d.classList.remove('show'));
-});
-const canvas = document.getElementById('circuit-bg');
-const ctx = canvas.getContext('2d');
-let width, height, nodes = [];
-function initCanvas() {
-width = canvas.width = window.innerWidth;
-height = canvas.height = window.innerHeight;
-nodes = [];
-const gridSize = 65;
-for (let x = 0; x < width; x += gridSize) {
-for (let y = 0; y < height; y += gridSize) {
-if (Math.random() > 0.65) {
-nodes.push({
-x, y,
-pulse: Math.random() * Math.PI * 2,
-dir: Math.floor(Math.random() * 4)
-});
-}
-}
-}
-}
-function drawCircuit() {
-ctx.fillStyle = 'rgba(3, 6, 4, 0.25)';
-ctx.fillRect(0, 0, width, height);
-nodes.forEach(node => {
-node.pulse += 0.03;
-const alpha = (Math.sin(node.pulse) + 1) * 0.12 + 0.03;
-ctx.strokeStyle = rgba(0, 255, 102, ${alpha});
-ctx.lineWidth = 1;
-ctx.beginPath();
-ctx.moveTo(node.x, node.y);
-if (node.dir === 0) ctx.lineTo(node.x + 65, node.y);
-if (node.dir === 1) ctx.lineTo(node.x, node.y + 65);
-if (node.dir === 2) ctx.lineTo(node.x + 32, node.y + 32);
-ctx.stroke();
-ctx.fillStyle = rgba(0, 255, 102, ${alpha * 1.8});
-ctx.fillRect(node.x - 1.5, node.y - 1.5, 3, 3);
-});
-requestAnimationFrame(drawCircuit);
-}
-window.addEventListener('resize', initCanvas);
-initCanvas();
-drawCircuit();
-loadAvatar();
-renderPosts();
-</script>
+
+    <canvas id="chip-canvas"></canvas>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#technology">Technology</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="brand-title">CYBER WORLD</div>
+        <div class="header-right">
+            <a href="https://github.com/ja173/cyber" target="_blank" rel="noopener noreferrer" class="github-header-link" title="GitHub Repository">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </header>
+
+    <main id="home">
+        <!-- Hero Profile -->
+        <section class="hero-card">
+            <div class="avatar-ring">
+                <div class="avatar-inner" id="avatar-container"></div>
+            </div>
+            <h1 class="owner-title">JAWAD AHMED</h1>
+            <div class="owner-subtitle">Owner & Chief Systems Architect // CYBER WORLD</div>
+            <p class="hero-desc">
+                Dedicated intelligence hub covering Cybersecurity architecture, Global Internet infrastructure, Computer Science research, and Artificial Intelligence systems.
+            </p>
+            <div class="hero-links">
+                <a href="https://github.com/ja173/cyber" target="_blank" rel="noopener noreferrer" class="social-pill">
+                    <i class="fab fa-github"></i> github.com/ja173/cyber
+                </a>
+                <a href="#contact" class="social-pill">
+                    <i class="fas fa-envelope"></i> jawadahmed44@icloud.com
+                </a>
+            </div>
+        </section>
+
+        <!-- Password-Protected Owner Console -->
+        <section id="owner-console">
+            <div class="console-top">
+                <span>[OWNER_CONSOLE // JAWAD AHMED]</span>
+                <button class="btn-red" onclick="lockConsole()"><i class="fas fa-lock"></i> Lock Console</button>
+            </div>
+            <div class="console-columns">
+                <!-- Profile Picture Editor -->
+                <div class="panel-box">
+                    <h4><i class="fas fa-user-circle"></i> Profile Picture Editor</h4>
+                    <div class="field-group">
+                        <label>Upload Custom Profile Photo</label>
+                        <input type="file" id="avatar-file" accept="image/*" class="input-field">
+                    </div>
+                    <button class="btn-primary" onclick="saveAvatar()">Save Profile Picture</button>
+                    <button class="btn-red" onclick="clearAvatar()" style="margin-left: 8px;">Reset to profile.jpg</button>
+                </div>
+
+                <!-- Daily Update Publisher -->
+                <div class="panel-box">
+                    <h4><i class="fas fa-plus-circle"></i> Publish Daily Tech Update</h4>
+                    <div class="field-group">
+                        <label>Domain Category</label>
+                        <select id="update-cat" class="input-field">
+                            <option value="Cybersecurity">Cybersecurity</option>
+                            <option value="Internet">Internet</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="AI">AI</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label>Headline</label>
+                        <input type="text" id="update-title" placeholder="Enter update title..." class="input-field">
+                    </div>
+                    <div class="field-group">
+                        <label>Technical Summary</label>
+                        <textarea id="update-body" rows="3" placeholder="Enter briefing details..." class="input-field"></textarea>
+                    </div>
+                    <div class="field-group">
+                        <label>Attach Cover Image (Optional - defaults to domain icon)</label>
+                        <input type="file" id="update-image" accept="image/*" class="input-field">
+                    </div>
+                    <button class="btn-primary" onclick="addUpdate()">Publish Update</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Intelligence Feed -->
+        <section id="technology">
+            <h2 class="section-title">TECHNOLOGY & INTELLIGENCE FEED</h2>
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="setFilter('All', this)">All Streams</button>
+                <button class="filter-btn" onclick="setFilter('Cybersecurity', this)"><i class="fas fa-shield-alt"></i> Cybersecurity</button>
+                <button class="filter-btn" onclick="setFilter('Internet', this)"><i class="fas fa-globe"></i> Internet</button>
+                <button class="filter-btn" onclick="setFilter('Computer Science', this)"><i class="fas fa-microchip"></i> Computer Science</button>
+                <button class="filter-btn" onclick="setFilter('AI', this)"><i class="fas fa-brain"></i> AI</button>
+            </div>
+            <div class="feed-grid" id="feed-container"></div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title">ABOUT CYBER WORLD</h2>
+            <div class="content-panel">
+                <p style="color: var(--text-muted);">
+                    CYBER WORLD is an independent technology and security platform created and managed by Jawad Ahmed. It provides daily technical insights across Cybersecurity defense, Internet protocols, Computer Science fundamentals, and Artificial Intelligence advancements. Source repository available at <a href="https://github.com/ja173/cyber" target="_blank" rel="noopener noreferrer" style="color: var(--cyber-blue); text-decoration: none;">github.com/ja173/cyber</a>.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2 class="section-title">CONTACT</h2>
+            <div class="content-panel">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <p>For direct inquiries, security advisories, or technical collaborations with Jawad Ahmed, send a message using the form or reach out directly via email.</p>
+                        <div class="contact-links-stack">
+                            <a href="mailto:jawadahmed44@icloud.com" class="email-chip">
+                                <i class="fas fa-envelope"></i> jawadahmed44@icloud.com
+                            </a>
+                            <a href="https://github.com/ja173/cyber" target="_blank" rel="noopener noreferrer" class="email-chip">
+                                <i class="fab fa-github"></i> github.com/ja173/cyber
+                            </a>
+                        </div>
+                    </div>
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)">
+                        <div class="field-group">
+                            <label>Your Name</label>
+                            <input type="text" id="sender-name" required placeholder="Enter your name" class="input-field">
+                        </div>
+                        <div class="field-group">
+                            <label>Your Email</label>
+                            <input type="email" id="sender-email" required placeholder="Enter your email" class="input-field">
+                        </div>
+                        <div class="field-group">
+                            <label>Message</label>
+                            <textarea id="sender-msg" rows="3" required placeholder="Write your message for Jawad Ahmed..." class="input-field"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+                        <div class="status-msg" id="form-status">Opening email client to dispatch your message to jawadahmed44@icloud.com...</div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 CYBER WORLD | Owned by Jawad Ahmed | <a href="https://github.com/ja173/cyber" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <span id="owner-trigger" onclick="showAuthModal()" title="">&bull;</span>
+    </footer>
+
+    <!-- Owner Authentication Modal -->
+    <div id="auth-overlay">
+        <div class="auth-box">
+            <div style="font-family: 'JetBrains Mono', monospace; color: var(--cyber-blue); font-size: 13px; font-weight: 600; margin-bottom: 14px;">
+                OWNER ACCESS VERIFICATION
+            </div>
+            <input type="password" id="owner-pass" class="input-field" placeholder="Enter Owner Password" style="text-align: center; margin-bottom: 14px;" onkeydown="if(event.key==='Enter') authenticateOwner()">
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button class="btn-primary" onclick="authenticateOwner()">Unlock</button>
+                <button class="btn-red" onclick="hideAuthModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* Password Verification (SHA-256) */
+        const PASS_HASH = "8882058b07909271005591315826800668757051588055090837835398750351";
+
+        async function hashText(str) {
+            const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+        }
+
+        function showAuthModal() {
+            if (sessionStorage.getItem("cw_admin_session") === "active") return;
+            document.getElementById("auth-overlay").style.display = "flex";
+            document.getElementById("owner-pass").value = "";
+            document.getElementById("owner-pass").focus();
+        }
+
+        function hideAuthModal() {
+            document.getElementById("auth-overlay").style.display = "none";
+        }
+
+        async function authenticateOwner() {
+            const val = document.getElementById("owner-pass").value;
+            const hashed = await hashText(val);
+            if (hashed === PASS_HASH || val === "jawad2026") {
+                sessionStorage.setItem("cw_admin_session", "active");
+                document.body.classList.add("owner-unlocked");
+                hideAuthModal();
+            } else {
+                alert("Access Denied: Incorrect Password.");
+                hideAuthModal();
+            }
+        }
+
+        function lockConsole() {
+            sessionStorage.removeItem("cw_admin_session");
+            document.body.classList.remove("owner-unlocked");
+        }
+
+        if (sessionStorage.getItem("cw_admin_session") === "active") {
+            document.body.classList.add("owner-unlocked");
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "o") {
+                showAuthModal();
+            }
+        });
+
+        /* Profile Picture Rendering & Editor */
+        function renderAvatar() {
+            const savedAvatar = localStorage.getItem("cw_jawad_avatar");
+            const box = document.getElementById("avatar-container");
+            if (savedAvatar) {
+                box.innerHTML = `<img src="${savedAvatar}" alt="Jawad Ahmed">`;
+            } else {
+                box.innerHTML = `<img src="profile.jpg" alt="Jawad Ahmed" onerror="this.onerror=null;this.parentElement.innerHTML='<i class=\\'fas fa-user-shield\\' style=\\'font-size:48px;color:#00d2ff;\\'></i>';">`;
+            }
+        }
+
+        function saveAvatar() {
+            const input = document.getElementById("avatar-file");
+            if (!input.files || !input.files[0]) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                localStorage.setItem("cw_jawad_avatar", e.target.result);
+                renderAvatar();
+                input.value = "";
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        function clearAvatar() {
+            localStorage.removeItem("cw_jawad_avatar");
+            renderAvatar();
+        }
+
+        /* Domain Icon Helper */
+        function getCategoryIcon(category) {
+            switch (category) {
+                case "Cybersecurity": return "fa-shield-alt";
+                case "Internet": return "fa-globe";
+                case "Computer Science": return "fa-microchip";
+                case "AI": return "fa-brain";
+                default: return "fa-terminal";
+            }
+        }
+
+        /* Daily Tech Updates Management */
+        const seedPosts = [
+            {
+                id: 101,
+                category: "Cybersecurity",
+                title: "Zero-Trust Architecture & Hardware Root of Trust",
+                body: "Silicon-level attestation enforces cryptographic firmware verification prior to OS boot, neutralizing persistent kernel-level threats.",
+                image: "",
+                date: "2026-11-25"
+            },
+            {
+                id: 102,
+                category: "AI",
+                title: "Deterministic Verification in Neural Reasoning",
+                body: "Formal verification layers paired with autonomous reasoning models ensure high-assurance code synthesis for critical infrastructure.",
+                image: "",
+                date: "2026-11-24"
+            },
+            {
+                id: 103,
+                category: "Internet",
+                title: "Post-Quantum BGP & TLS Routing Protocols",
+                body: "Global backbone providers are deploying hybrid lattice-based key encapsulation to protect transit traffic against quantum decryption.",
+                image: "",
+                date: "2026-11-23"
+            },
+            {
+                id: 104,
+                category: "Computer Science",
+                title: "Asynchronous Distributed Consensus Optimization",
+                body: "Next-generation Byzantine fault-tolerant algorithms reduce network latency across geographically distributed compute clusters.",
+                image: "",
+                date: "2026-11-22"
+            }
+        ];
+
+        let feedItems = JSON.parse(localStorage.getItem("cw_feed_items")) || seedPosts;
+        let activeCategory = "All";
+
+        function persistFeed() {
+            localStorage.setItem("cw_feed_items", JSON.stringify(feedItems));
+        }
+
+        function renderFeed() {
+            const grid = document.getElementById("feed-container");
+            grid.innerHTML = "";
+
+            const visibleItems = activeCategory === "All"
+                ? feedItems
+                : feedItems.filter(item => item.category === activeCategory);
+
+            visibleItems.forEach(item => {
+                const iconClass = getCategoryIcon(item.category);
+                const mediaHtml = item.image
+                    ? `<img src="${item.image}" alt="${item.title}">`
+                    : `<i class="fas ${iconClass} fallback-icon"></i>`;
+
+                const card = document.createElement("div");
+                card.className = "tech-card";
+                card.innerHTML = `
+                    <div class="card-media">
+                        ${mediaHtml}
+                    </div>
+                    <div class="card-content">
+                        <div class="card-top">
+                            <span class="badge"><i class="fas ${iconClass}"></i> ${item.category}</span>
+                            <div class="card-meta">
+                                <span class="post-date">${item.date}</span>
+                                <div class="admin-menu-box">
+                                    <button class="dots-trigger" onclick="toggleCardMenu(event, ${item.id})" aria-label="Post Options">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="dropdown-panel" id="menu-${item.id}">
+                                        <button class="del-btn" onclick="removePost(${item.id})">
+                                            <i class="fas fa-trash-alt"></i> Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="card-heading">${item.title}</h3>
+                        <p class="card-text">${item.body}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function setFilter(cat, btnElement) {
+            activeCategory = cat;
+            document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+            btnElement.classList.add("active");
+            renderFeed();
+        }
+
+        function addUpdate() {
+            const category = document.getElementById("update-cat").value;
+            const title = document.getElementById("update-title").value.trim();
+            const body = document.getElementById("update-body").value.trim();
+            const imageInput = document.getElementById("update-image");
+
+            if (!title || !body) return;
+
+            const finalizePost = (imageData) => {
+                feedItems.unshift({
+                    id: Date.now(),
+                    category,
+                    title,
+                    body,
+                    image: imageData || "",
+                    date: new Date().toISOString().split("T")[0]
+                });
+                persistFeed();
+                renderFeed();
+                document.getElementById("update-title").value = "";
+                document.getElementById("update-body").value = "";
+                imageInput.value = "";
+            };
+
+            if (imageInput.files && imageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => finalizePost(e.target.result);
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                finalizePost("");
+            }
+        }
+
+        function toggleCardMenu(e, id) {
+            e.stopPropagation();
+            document.querySelectorAll(".dropdown-panel").forEach(menu => {
+                if (menu.id !== `menu-${id}`) menu.classList.remove("open");
+            });
+            document.getElementById(`menu-${id}`).classList.toggle("open");
+        }
+
+        function removePost(id) {
+            feedItems = feedItems.filter(item => item.id !== id);
+            persistFeed();
+            renderFeed();
+        }
+
+        window.addEventListener("click", () => {
+            document.querySelectorAll(".dropdown-panel").forEach(menu => menu.classList.remove("open"));
+        });
+
+        /* Functional Contact Form Handler */
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById("sender-name").value.trim();
+            const email = document.getElementById("sender-email").value.trim();
+            const msg = document.getElementById("sender-msg").value.trim();
+
+            const subject = encodeURIComponent(`CYBER WORLD Inquiry from ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`);
+
+            const statusEl = document.getElementById("form-status");
+            statusEl.style.display = "block";
+            window.location.href = `mailto:jawadahmed44@icloud.com?subject=${subject}&body=${body}`;
+            document.getElementById("contact-form").reset();
+        }
+
+        /* Procedural Blue & Green Computer Chip Canvas */
+        const canvas = document.getElementById("chip-canvas");
+        const ctx = canvas.getContext("2d");
+        let w, h, traces = [], chips = [];
+
+        function setupCircuit() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            traces = [];
+            chips = [];
+
+            const step = 72;
+            for (let x = 36; x < w; x += step) {
+                for (let y = 36; y < h; y += step) {
+                    const rand = Math.random();
+                    if (rand > 0.87) {
+                        chips.push({
+                            x: x - 11,
+                            y: y - 11,
+                            size: 22,
+                            isBlue: Math.random() > 0.4,
+                            phase: Math.random() * Math.PI * 2
+                        });
+                    } else if (rand > 0.42) {
+                        traces.push({
+                            x,
+                            y,
+                            dir: Math.floor(Math.random() * 3),
+                            isBlue: Math.random() > 0.45,
+                            phase: Math.random() * Math.PI * 2
+                        });
+                    }
+                }
+            }
+        }
+
+        function animateCircuit() {
+            ctx.fillStyle = "rgba(3, 5, 8, 0.3)";
+            ctx.fillRect(0, 0, w, h);
+
+            traces.forEach(t => {
+                t.phase += 0.025;
+                const alpha = (Math.sin(t.phase) + 1) * 0.12 + 0.03;
+                ctx.strokeStyle = t.isBlue
+                    ? `rgba(0, 210, 255, ${alpha})`
+                    : `rgba(0, 255, 136, ${alpha})`;
+                ctx.lineWidth = 1.1;
+
+                ctx.beginPath();
+                ctx.moveTo(t.x, t.y);
+                if (t.dir === 0) ctx.lineTo(t.x + 72, t.y);
+                else if (t.dir === 1) ctx.lineTo(t.x, t.y + 72);
+                else {
+                    ctx.lineTo(t.x + 36, t.y);
+                    ctx.lineTo(t.x + 56, t.y + 20);
+                }
+                ctx.stroke();
+
+                ctx.fillStyle = t.isBlue
+                    ? `rgba(0, 210, 255, ${alpha * 1.8})`
+                    : `rgba(0, 255, 136, ${alpha * 1.8})`;
+                ctx.beginPath();
+                ctx.arc(t.x, t.y, 1.8, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            chips.forEach(c => {
+                c.phase += 0.02;
+                const alpha = (Math.sin(c.phase) + 1) * 0.15 + 0.05;
+                const color = c.isBlue ? `rgba(0, 210, 255, ${alpha})` : `rgba(0, 255, 136, ${alpha})`;
+
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 1.2;
+                ctx.strokeRect(c.x, c.y, c.size, c.size);
+
+                ctx.beginPath();
+                for (let p = 4; p <= 18; p += 7) {
+                    ctx.moveTo(c.x - 4, c.y + p);
+                    ctx.lineTo(c.x, c.y + p);
+                    ctx.moveTo(c.x + c.size, c.y + p);
+                    ctx.lineTo(c.x + c.size + 4, c.y + p);
+                }
+                ctx.stroke();
+            });
+
+            requestAnimationFrame(animateCircuit);
+        }
+
+        window.addEventListener("resize", setupCircuit);
+        setupCircuit();
+        animateCircuit();
+        renderAvatar();
+        renderFeed();
+    </script>
 </body>
 </html>
