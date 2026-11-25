@@ -1,104 +1,607 @@
-const express = require('express');
-const session = require('express-session');
-const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cyber World — Jawad Ahmad</title>
+  <style>
+    :root {
+      --bg-dark: #050b14;
+      --bg-panel: #0c1b2e;
+      --bg-card: #10243d;
+      --accent: #18d2e8;
+      --accent-hover: #38e4f8;
+      --text-main: #f1f7ff;
+      --text-muted: #b6c8de;
+      --border-glow: rgba(24, 210, 232, 0.35);
+    }
 
-const ADMIN_PASSWORD = 'यहाँ-अपना-मज़बूत-पासवर्ड-लिखें';
-const SESSION_SECRET = 'यहाँ-कोई-बहुत-लंबा-गुप्त-वाक्य-लिखें';
-const DATA_FILE = path.join(__dirname, 'data.json');
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
 
-const app = express();
-app.use(express.json());
-app.use(session({
-  secret: SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { httpOnly: true, maxAge: 1000 * 60 * 60 * 8 }
-}));
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-function readData() {
-  if (!fs.existsSync(DATA_FILE)) {
-    return { profilePicture: '', posts: [] };
-  }
-  return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-}
-function writeData(data) {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
-}
-function requireAdmin(req, res, next) {
-  if (req.session.isAdmin) return next();
-  res.status(401).json({ error: 'सिर्फ़ एडमिन के लिए' });
-}
+    /* Header & Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(6, 16, 30, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(24, 210, 232, 0.18);
+      padding: 16px 20px;
+      text-align: center;
+    }
 
-const storage = multer.diskStorage({
-  destination: path.join(__dirname, 'uploads'),
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, Date.now() + ext);
-  }
-});
-const upload = multer({
-  storage,
-  limits: { fileSize: 5 * 1024 * 1024 },
-  fileFilter: (req, file, cb) => {
-    const ok = ['.jpg', '.jpeg', '.png', '.webp'];
-    cb(null, ok.includes(path.extname(file.originalname).toLowerCase()));
-  }
-});
+    .brand-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(express.static(path.join(__dirname, 'public'), { index: 'index.html' }));
+    nav {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
 
-app.post('/api/login', (req, res) => {
-  if (req.body.password === ADMIN_PASSWORD) {
-    req.session.isAdmin = true;
-    return res.json({ ok: true });
-  }
-  res.status(401).json({ error: 'पासवर्ड ग़लत है' });
-});
-app.post('/api/logout', (req, res) => {
-  req.session.destroy(() => res.json({ ok: true }));
-});
-app.get('/api/me', (req, res) => {
-  res.json({ isAdmin: !!req.session.isAdmin });
-});
+    nav a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.98rem;
+      transition: color 0.2s ease;
+    }
 
-app.get('/api/data', (req, res) => {
-  res.json(readData());
-});
+    nav a:hover {
+      color: var(--accent);
+    }
 
-app.post('/api/profile-picture', requireAdmin, upload.single('image'), (req, res) => {
-  if (!req.file) return res.status(400).json({ error: 'तस्वीर नहीं मिली' });
-  const data = readData();
-  data.profilePicture = '/uploads/' + req.file.filename;
-  writeData(data);
-  res.json({ ok: true });
-});
+    /* Hero Section with Circuit/Chip Pattern */
+    .hero {
+      position: relative;
+      min-height: 76vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 64px 20px;
+      background:
+        linear-gradient(180deg, rgba(5, 11, 20, 0.78) 0%, rgba(7, 20, 38, 0.92) 100%),
+        repeating-linear-gradient(
+          90deg,
+          rgba(24, 210, 232, 0.06) 0px,
+          rgba(24, 210, 232, 0.06) 1px,
+          transparent 1px,
+          transparent 44px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          rgba(34, 197, 94, 0.06) 0px,
+          rgba(34, 197, 94, 0.06) 1px,
+          transparent 1px,
+          transparent 44px
+        ),
+        radial-gradient(circle at center, #0e2a47 0%, #050b14 75%);
+    }
 
-app.post('/api/posts', requireAdmin, upload.single('image'), (req, res) => {
-  const data = readData();
-  data.posts.unshift({
-    id: Date.now(),
-    category: req.body.category || 'General',
-    title: req.body.title || '',
-    text: req.body.text || '',
-    image: req.file ? '/uploads/' + req.file.filename : '',
-    date: new Date().toISOString()
-  });
-  writeData(data);
-  res.json({ ok: true });
-});
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 3.6rem);
+      line-height: 1.15;
+      color: var(--accent);
+      font-weight: 800;
+      max-width: 720px;
+      margin-bottom: 18px;
+    }
 
-app.delete('/api/posts/:id', requireAdmin, (req, res) => {
-  const data = readData();
-  data.posts = data.posts.filter(p => String(p.id) !== req.params.id);
-  writeData(data);
-  res.json({ ok: true });
-});
+    .hero p {
+      max-width: 560px;
+      color: var(--text-main);
+      font-size: 1.12rem;
+      margin-bottom: 28px;
+    }
 
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
-});
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #041322;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
 
-app.listen(3000, () => console.log('सर्वर चालू: http://localhost:3000'));
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Sections */
+    section {
+      padding: 72px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: var(--accent);
+      margin-bottom: 28px;
+      font-weight: 800;
+    }
+
+    /* About Section */
+    .about-card {
+      background: var(--bg-panel);
+      border: 1px solid rgba(24, 210, 232, 0.16);
+      border-radius: 20px;
+      padding: 36px 24px;
+      text-align: center;
+    }
+
+    .about-text {
+      max-width: 660px;
+      margin: 0 auto 32px;
+      font-size: 1.05rem;
+      color: var(--text-main);
+    }
+
+    .owner-avatar {
+      width: 132px;
+      height: 132px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: #143252;
+      border: 4px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      box-shadow: 0 0 25px rgba(24, 210, 232, 0.25);
+    }
+
+    .owner-name {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .owner-role {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-top: 4px;
+    }
+
+    /* Technology Cards */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    }
+
+    .tech-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(24, 210, 232, 0.2);
+      border-radius: 18px;
+      padding: 28px 22px;
+      text-align: center;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .tech-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .tech-icon {
+      font-size: 2.6rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .tech-card h3 {
+      color: var(--accent);
+      font-size: 1.35rem;
+      margin-bottom: 10px;
+    }
+
+    .tech-card p {
+      color: var(--text-main);
+      font-size: 0.98rem;
+    }
+
+    .daily-entries {
+      margin-top: 16px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .entry-item {
+      background: rgba(5, 13, 24, 0.72);
+      border-left: 3px solid var(--accent);
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+    }
+
+    .entry-date {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    /* Owner Panel */
+    .owner-bar {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 9px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .btn-outline:hover {
+      background: rgba(24, 210, 232, 0.12);
+    }
+
+    .owner-editor {
+      display: none;
+      margin-top: 22px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-glow);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: left;
+    }
+
+    .owner-editor.active {
+      display: block;
+    }
+
+    .form-row {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(24, 210, 232, 0.25);
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.96rem;
+    }
+
+    textarea {
+      min-height: 95px;
+      resize: vertical;
+    }
+
+    /* Contact Section */
+    .contact-box {
+      background: var(--bg-panel);
+      border-radius: 20px;
+      padding: 40px 24px;
+      text-align: center;
+      border: 1px solid rgba(24, 210, 232, 0.16);
+    }
+
+    .contact-info {
+      margin: 22px 0;
+      font-size: 1.05rem;
+    }
+
+    .contact-info strong {
+      color: var(--text-main);
+    }
+
+    .email-highlight {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .btn-light {
+      display: inline-block;
+      background: #ffffff;
+      color: var(--accent);
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-bottom: 24px;
+    }
+
+    .message-form {
+      max-width: 520px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .status-msg {
+      margin-top: 12px;
+      font-size: 0.92rem;
+      color: #4ade80;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 28px 16px 36px;
+      background: #040911;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(24, 210, 232, 0.12);
+    }
+
+    footer .brand-span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-title">CYBER WORLD</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#technology">Technology</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <h1>Welcome to Cyber World</h1>
+      <p>Explore the world of technology, computers, internet, cybersecurity and digital knowledge.</p>
+      <a href="#technology" class="btn-primary">Explore More</a>
+    </section>
+
+    <section id="about">
+      <h2 class="section-heading">About Cyber World</h2>
+      <div class="about-card">
+        <p class="about-text">
+          Welcome to Cyber World. This website is created by Jawad Ahmad.
+          Cyber World is a platform dedicated to technology, computers, the internet,
+          cybersecurity and digital knowledge. Our goal is to share useful information and
+          help people understand modern technology. We believe learning technology can create a
+          better future.
+        </p>
+        <div class="owner-avatar" aria-label="Founder Avatar">🧑‍💻</div>
+        <div class="owner-name">Jawad Ahmad</div>
+        <div class="owner-role">Founder &amp; Website Owner</div>
+      </div>
+    </section>
+
+    <section id="technology">
+      <h2 class="section-heading">Explore Technology</h2>
+      <div class="tech-grid">
+        <article class="tech-card" id="cat-computer">
+          <span class="tech-icon">💻</span>
+          <h3>Computer</h3>
+          <p>Learn about computers, hardware, software and useful computer knowledge.</p>
+          <div class="daily-entries" id="entries-computer"></div>
+        </article>
+
+        <article class="tech-card" id="cat-internet">
+          <span class="tech-icon">🌐</span>
+          <h3>Internet</h3>
+          <p>Discover websites, online services, networking and internet technology.</p>
+          <div class="daily-entries" id="entries-internet"></div>
+        </article>
+
+        <article class="tech-card" id="cat-cybersecurity">
+          <span class="tech-icon">🔐</span>
+          <h3>Cyber Security</h3>
+          <p>Understand online safety, digital privacy and ways to protect your information.</p>
+          <div class="daily-entries" id="entries-cybersecurity"></div>
+        </article>
+
+        <article class="tech-card" id="cat-ai">
+          <span class="tech-icon">🤖</span>
+          <h3>Artificial Intelligence</h3>
+          <p>Explore AI, smart technology and the future of digital innovation.</p>
+          <div class="daily-entries" id="entries-ai"></div>
+        </article>
+      </div>
+
+      <div class="owner-bar">
+        <button class="btn-outline" id="toggleOwnerBtn" type="button">
+          Owner Edit Mode (Jawad Ahmad)
+        </button>
+      </div>
+
+      <div class="owner-editor" id="ownerEditor">
+        <h3 style="color: var(--accent); margin-bottom: 14px;">Daily Tech Update (Owner Only)</h3>
+        <div class="form-row">
+          <label for="ownerPasscode">Owner Passcode (Default: cyber2026 — change in code before publishing)</label>
+          <input type="password" id="ownerPasscode" placeholder="Enter owner passcode" />
+        </div>
+        <div class="form-row">
+          <label for="postCategory">Category</label>
+          <select id="postCategory">
+            <option value="computer">Computer</option>
+            <option value="internet">Internet</option>
+            <option value="cybersecurity">Cyber Security</option>
+            <option value="ai">Artificial Intelligence</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="postContent">Daily Note / Update</label>
+          <textarea id="postContent" placeholder="Write today's technology note or update..."></textarea>
+        </div>
+        <button class="btn-primary" id="savePostBtn" type="button">Add Daily Update</button>
+        <div class="status-msg" id="ownerStatus"></div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-box">
+        <h2 class="section-heading" style="margin-bottom: 14px;">Contact Us</h2>
+        <p style="color: var(--text-main);">Have questions, suggestions or feedback?<br />Feel free to contact us.</p>
+
+        <div class="contact-info">
+          <p><strong>Website Owner:</strong> Jawad Ahmad</p>
+          <p><strong>Email Address:</strong> <span class="email-highlight">jawadahmad44@icloud.com</span></p>
+        </div>
+
+        <a href="mailto:jawadahmad44@icloud.com?subject=Cyber%20World%20Message" class="btn-light">
+          Send an Email
+        </a>
+
+        <form class="message-form" id="contactForm">
+          <div class="form-row">
+            <label for="senderName">Your Name</label>
+            <input type="text" id="senderName" required placeholder="Enter your name" />
+          </div>
+          <div class="form-row">
+            <label for="senderMessage">Message</label>
+            <textarea id="senderMessage" required placeholder="Write your message here..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Send Message</button>
+          <div class="status-msg" id="formStatus"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 <span class="brand-span">Cyber World</span>. All Rights Reserved.</p>
+    <p>Created by Jawad Ahmad</p>
+  </footer>
+
+  <script>
+    const OWNER_PASSCODE = "cyber2026";
+    const STORAGE_KEY = "cyber_world_daily_posts_v1";
+
+    const defaultPosts = {
+      computer: [{ date: "Daily Note", text: "Hardware basics, operating systems, and clean system maintenance." }],
+      internet: [{ date: "Daily Note", text: "How DNS, HTTP/HTTPS, and web protocols connect the world." }],
+      cybersecurity: [{ date: "Daily Note", text: "Use strong unique passwords and enable two-factor authentication." }],
+      ai: [{ date: "Daily Note", text: "Practical uses of machine learning and modern AI tools." }]
+    };
+
+    function loadPosts() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : defaultPosts;
+      } catch {
+        return defaultPosts;
+      }
+    }
+
+    function renderPosts(posts) {
+      ["computer", "internet", "cybersecurity", "ai"].forEach((cat) => {
+        const container = document.getElementById(`entries-${cat}`);
+        container.innerHTML = "";
+        (posts[cat] || []).forEach((item) => {
+          const div = document.createElement("div");
+          div.className = "entry-item";
+          const dateSpan = document.createElement("span");
+          dateSpan.className = "entry-date";
+          dateSpan.textContent = item.date;
+          const textNode = document.createTextNode(item.text);
+          div.appendChild(dateSpan);
+          div.appendChild(textNode);
+          container.appendChild(div);
+        });
+      });
+    }
+
+    const postsData = loadPosts();
+    renderPosts(postsData);
+
+    const toggleOwnerBtn = document.getElementById("toggleOwnerBtn");
+    const ownerEditor = document.getElementById("ownerEditor");
+    const savePostBtn = document.getElementById("savePostBtn");
+    const ownerStatus = document.getElementById("ownerStatus");
+
+    toggleOwnerBtn.addEventListener("click", () => {
+      ownerEditor.classList.toggle("active");
+      ownerStatus.textContent = "";
+    });
+
+    savePostBtn.addEventListener("click", () => {
+      const code = document.getElementById("ownerPasscode").value;
+      const cat = document.getElementById("postCategory").value;
+      const text = document.getElementById("postContent").value.trim();
+
+      if (code !== OWNER_PASSCODE) {
+        ownerStatus.style.color = "#f87171";
+        ownerStatus.textContent = "Incorrect owner passcode.";
+        return;
+      }
+      if (!text) {
+        ownerStatus.style.color = "#f87171";
+        ownerStatus.textContent = "Please write a note before adding.";
+        return;
+      }
+
+      const today = new Date().toLocaleDateString();
+      postsData[cat] = [{ date: today, text }, ...(postsData[cat] || [])];
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(postsData));
+      renderPosts(postsData);
+
+      document.getElementById("postContent").value = "";
+      ownerStatus.style.color = "#4ade80";
+      ownerStatus.textContent = "Daily update added to your browser view.";
+    });
+
+    const contactForm = document.getElementById("contactForm");
+    const formStatus = document.getElementById("formStatus");
+
+    contactForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = encodeURIComponent(document.getElementById("senderName").value.trim());
+      const msg = encodeURIComponent(document.getElementById("senderMessage").value.trim());
+      formStatus.textContent = "Opening your email app to send your message to jawadahmad44@icloud.com...";
+      window.location.href = `mailto:jawadahmad44@icloud.com?subject=Message%20from%20${name}&body=${msg}`;
+    });
+  </script>
+</body>
+</html>
