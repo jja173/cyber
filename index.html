@@ -1,1148 +1,1203 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cyber World — Jawad Ahmad | Founder & Owner</title>
+  <title>Cyber World — Jawad Ahmad</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            navy: {
+              950: '#050e1a',
+              900: '#071426',
+              800: '#0a192f',
+              700: '#112240',
+              600: '#1b335c',
+            },
+            cyanpulse: {
+              400: '#22d3ee',
+              500: '#00e5ff',
+              600: '#0891b2',
+            },
+          },
+        },
+      },
+    };
+  </script>
   <style>
-    :root {
-      --bg-primary: #060b19;
-      --bg-secondary: #0c152c;
-      --bg-card: #101c38;
-      --bg-card-hover: #15254a;
-      --cyan-primary: #00f0ff;
-      --cyan-secondary: #00a8cc;
-      --cyan-glow: rgba(0, 240, 255, 0.25);
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --border-color: rgba(0, 240, 255, 0.2);
-      --danger: #ef4444;
-      --success: #10b981;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
-
+    /* Custom styling for subtle circuit grid backdrop, smooth modals, and high contrast */
     body {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      background-color: #071426;
+      color: #f8fafc;
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .hero-circuit-bg {
+      background-color: #071426;
       background-image:
-        radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.06) 0%, transparent 40%),
-        radial-gradient(circle at 85% 80%, rgba(0, 168, 204, 0.06) 0%, transparent 40%);
+        radial-gradient(circle at 50% 35%, rgba(34, 211, 238, 0.14) 0%, rgba(7, 20, 38, 0.92) 68%),
+        linear-gradient(to right, rgba(34, 211, 238, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(34, 211, 238, 0.06) 1px, transparent 1px);
+      background-size: 100% 100%, 36px 36px, 36px 36px;
     }
 
-    /* Header & Navigation */
-    header {
-      background: rgba(12, 21, 44, 0.9);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 1rem 2rem;
+    .tech-card {
+      background: linear-gradient(180deg, rgba(17, 34, 64, 0.94) 0%, rgba(10, 25, 47, 0.98) 100%);
+      border: 1px solid rgba(34, 211, 238, 0.22);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+    .tech-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(34, 211, 238, 0.65);
+      box-shadow: 0 14px 32px -10px rgba(0, 229, 255, 0.22);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-      cursor: pointer;
+    .cyan-glow-btn {
+      background: linear-gradient(135deg, #22d3ee 0%, #00e5ff 100%);
+      color: #04101e;
+      box-shadow: 0 8px 24px -6px rgba(34, 211, 238, 0.45);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
     }
 
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--cyan-primary), #0066ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #060b19;
-      font-weight: 900;
-      font-size: 1.2rem;
-      box-shadow: 0 0 15px var(--cyan-glow);
+    .cyan-glow-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+      box-shadow: 0 12px 28px -6px rgba(0, 229, 255, 0.6);
     }
 
-    .brand-text h1 {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: var(--text-primary);
-      text-transform: uppercase;
+    .profile-ring {
+      box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.22), 0 0 28px rgba(0, 229, 255, 0.28);
     }
 
-    .brand-text span {
-      color: var(--cyan-primary);
+    /* Custom scrollbar for clean dark aesthetics */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
     }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    /* Hidden Owner Button by Default */
-    .owner-nav-item {
-      display: none; /* Strictly hidden from regular visitors */
-    }
-
-    body.owner-unlocked .owner-nav-item {
-      display: inline-flex; /* Revealed only when unlocked */
-    }
-
-    .btn {
-      padding: 0.55rem 1.1rem;
-      border-radius: 8px;
-      border: 1px solid var(--cyan-primary);
-      background: transparent;
-      color: var(--cyan-primary);
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn:hover {
-      background: var(--cyan-primary);
-      color: var(--bg-primary);
-      box-shadow: 0 0 15px var(--cyan-glow);
-    }
-
-    .btn-primary {
-      background: var(--cyan-primary);
-      color: var(--bg-primary);
-    }
-
-    .btn-primary:hover {
-      background: #33f3ff;
-    }
-
-    .btn-danger {
-      border-color: var(--danger);
-      color: var(--danger);
-    }
-
-    .btn-danger:hover {
-      background: var(--danger);
-      color: #fff;
-      box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
-    }
-
-    .btn-sm {
-      padding: 0.3rem 0.65rem;
-      font-size: 0.78rem;
-    }
-
-    /* Hero & Founder Profile Section */
-    .hero {
-      max-width: 1200px;
-      margin: 2.5rem auto 1.5rem;
-      padding: 0 2rem;
-    }
-
-    .founder-card {
-      background: linear-gradient(145deg, var(--bg-secondary), var(--bg-card));
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      flex-wrap: wrap;
-    }
-
-    .founder-profile {
-      display: flex;
-      align-items: center;
-      gap: 1.75rem;
-      flex-wrap: wrap;
-    }
-
-    .avatar-wrapper {
-      position: relative;
-      width: 125px;
-      height: 125px;
-      border-radius: 50%;
-      padding: 4px;
-      background: linear-gradient(135deg, var(--cyan-primary), #0066ff);
-      box-shadow: 0 0 25px var(--cyan-glow);
-      flex-shrink: 0;
-    }
-
-    .avatar-wrapper img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: top center;
-      background: var(--bg-primary);
-      display: block;
-    }
-
-    .founder-info h2 {
-      font-size: 1.85rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .founder-role {
-      display: inline-block;
-      margin-top: 0.25rem;
-      padding: 0.25rem 0.85rem;
-      background: rgba(0, 240, 255, 0.12);
-      border: 1px solid var(--cyan-primary);
-      color: var(--cyan-primary);
-      border-radius: 6px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-
-    .founder-bio {
-      margin-top: 0.75rem;
-      color: var(--text-secondary);
-      max-width: 560px;
-      font-size: 0.95rem;
-    }
-
-    .founder-contact {
-      background: rgba(6, 11, 25, 0.6);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.25rem 1.5rem;
-      min-width: 260px;
-    }
-
-    .founder-contact h3 {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--cyan-primary);
-      margin-bottom: 0.6rem;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      color: var(--text-primary);
-      font-size: 0.95rem;
-      margin-bottom: 0.4rem;
-      word-break: break-all;
-    }
-
-    .contact-item a {
-      color: var(--text-primary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .contact-item a:hover {
-      color: var(--cyan-primary);
-    }
-
-    /* Authenticated Owner Dashboard Bar */
-    .owner-bar {
-      max-width: 1200px;
-      margin: 0 auto 1.5rem;
-      padding: 0 2rem;
-      display: none; /* Hidden by default */
-    }
-
-    body.owner-authenticated .owner-bar {
-      display: block; /* Visible only when logged in */
-    }
-
-    .owner-bar-inner {
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .owner-bar-inner p {
-      color: #a7f3d0;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .owner-controls {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    /* Main 4 Technology Sections */
-    main {
-      max-width: 1200px;
-      width: 100%;
-      margin: 0 auto 3rem;
-      padding: 0 2rem;
-      flex: 1;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .section-header h2 {
-      font-size: 1.4rem;
-      color: var(--text-primary);
-      border-left: 4px solid var(--cyan-primary);
-      padding-left: 0.75rem;
-    }
-
-    .section-header span {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
-
-    .categories-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-
-    @media (max-width: 860px) {
-      .categories-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .category-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .category-card:hover {
-      border-color: var(--cyan-primary);
-      background: var(--bg-card-hover);
-    }
-
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .card-title-group {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .cat-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      background: rgba(0, 240, 255, 0.12);
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      color: var(--cyan-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-    }
-
-    .card-title-group h3 {
-      font-size: 1.25rem;
-      color: var(--text-primary);
-    }
-
-    .card-subtitle {
-      font-size: 0.8rem;
-      color: var(--cyan-secondary);
-    }
-
-    .updates-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-      flex: 1;
-    }
-
-    .update-item {
-      background: rgba(6, 11, 25, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-left: 3px solid var(--cyan-primary);
-      border-radius: 8px;
-      padding: 0.9rem 1rem;
-    }
-
-    .update-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.35rem;
-      gap: 0.5rem;
-    }
-
-    .update-date {
-      font-size: 0.75rem;
-      color: var(--cyan-primary);
-      font-weight: 600;
-    }
-
-    .update-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 0.3rem;
-    }
-
-    .update-desc {
-      font-size: 0.88rem;
-      color: var(--text-secondary);
-    }
-
-    .update-img {
-      margin-top: 0.6rem;
-      width: 100%;
-      max-height: 180px;
-      object-fit: cover;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-    }
-
-    .item-owner-actions {
-      display: none;
-      gap: 0.4rem;
-      margin-top: 0.65rem;
-      padding-top: 0.5rem;
-      border-top: 1px dashed rgba(255, 255, 255, 0.1);
-    }
-
-    body.owner-authenticated .item-owner-actions {
-      display: flex;
-    }
-
-    .owner-only-btn {
-      display: none;
-    }
-
-    body.owner-authenticated .owner-only-btn {
-      display: inline-flex;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--border-color);
-      padding: 1.5rem 2rem;
-      text-align: center;
-      color: var(--text-secondary);
-      font-size: 0.88rem;
-    }
-
-    footer strong {
-      color: var(--cyan-primary);
-    }
-
-    /* Modals */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(2, 6, 16, 0.82);
-      backdrop-filter: blur(6px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      z-index: 999;
-    }
-
-    .modal-backdrop.open {
-      display: flex;
-    }
-
-    .modal {
-      background: var(--bg-secondary);
-      border: 1px solid var(--cyan-primary);
-      border-radius: 14px;
-      width: 100%;
-      max-width: 480px;
-      padding: 1.75rem;
-      box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.25rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 0.75rem;
-    }
-
-    .modal-header h3 {
-      color: var(--cyan-primary);
-      font-size: 1.2rem;
-    }
-
-    .close-modal {
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      font-size: 1.4rem;
-      cursor: pointer;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-bottom: 0.35rem;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 0.65rem 0.85rem;
-      border-radius: 8px;
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      font-size: 0.92rem;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--cyan-primary);
+    ::-webkit-scrollbar-track {
+      background: #050e1a;
     }
-
-    .error-msg {
-      color: var(--danger);
-      font-size: 0.85rem;
-      margin-bottom: 0.75rem;
-      display: none;
+    ::-webkit-scrollbar-thumb {
+      background: #1b335c;
+      border-radius: 9999px;
     }
-
-    .modal-footer {
-      display: flex;
-      justify-content: flex-end;
-      gap: 0.75rem;
-      margin-top: 1.25rem;
+    ::-webkit-scrollbar-thumb:hover {
+      background: #22d3ee;
     }
   </style>
 </head>
-<body>
+<body class="bg-navy-900 text-slate-100 antialiased selection:bg-cyanpulse-400 selection:text-navy-950">
 
-  <!-- Header -->
-  <header>
-    <div class="nav-container">
-      <!-- Clicking Brand Icon 5 times unlocks the Owner interface -->
-      <div class="brand" id="brandTrigger" title="Cyber World">
-        <div class="brand-icon">CW</div>
-        <div class="brand-text">
-          <h1>Cyber <span>World</span></h1>
-        </div>
-      </div>
+  <!-- Toast / Status Banner (replaces alert/confirm) -->
+  <div id="statusToast" role="status" aria-live="polite"
+       class="fixed bottom-5 right-5 z-50 hidden max-w-sm rounded-2xl border border-cyanpulse-400/50 bg-navy-700/95 px-4 py-3 text-sm font-medium text-white shadow-2xl backdrop-blur-md">
+    <div class="flex items-center gap-3">
+      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-cyanpulse-400"></span>
+      <span id="statusToastMessage">Updated successfully.</span>
+    </div>
+  </div>
 
-      <div class="nav-actions">
-        <button class="btn owner-nav-item" id="openLoginBtn">Owner Login</button>
-        <button class="btn btn-danger owner-only-btn" id="logoutBtn">Logout</button>
-      </div>
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full border-b border-cyanpulse-400/15 bg-navy-950/90 backdrop-blur-md">
+    <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3.5 sm:px-6">
+      <!-- Brand / Visitor Badge -->
+      <a href="#home" class="flex items-center gap-2.5 rounded-xl px-2 py-1 text-base font-bold tracking-tight text-white transition hover:text-cyanpulse-400">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg border border-cyanpulse-400/40 bg-navy-700 text-cyanpulse-400">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <rect x="3" y="4" width="18" height="14" rx="2" />
+            <path d="M8 20h8M12 18v2" />
+          </svg>
+        </span>
+        <span id="brandTitleText">Cyber World</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav aria-label="Primary Navigation" class="flex items-center gap-1 sm:gap-2 text-sm font-medium">
+        <a href="#home" class="rounded-xl px-3 py-2 text-slate-200 transition hover:bg-navy-700 hover:text-cyanpulse-400">Home</a>
+        <a href="#about" class="rounded-xl px-3 py-2 text-slate-200 transition hover:bg-navy-700 hover:text-cyanpulse-400">About</a>
+        <a href="#technology" class="rounded-xl px-3 py-2 text-slate-200 transition hover:bg-navy-700 hover:text-cyanpulse-400">Technology</a>
+        <a href="#contact" class="rounded-xl px-3 py-2 text-slate-200 transition hover:bg-navy-700 hover:text-cyanpulse-400">Contact</a>
+      </nav>
+
+      <!-- Owner / Admin Settings Button -->
+      <button id="openOwnerPanelBtn" type="button"
+              class="inline-flex items-center gap-2 rounded-xl border border-cyanpulse-400/40 bg-navy-700/90 px-3.5 py-2 text-xs sm:text-sm font-semibold text-cyanpulse-400 transition hover:border-cyanpulse-400 hover:bg-navy-600 focus:outline-none focus:ring-2 focus:ring-cyanpulse-400">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+        </svg>
+        <span>Owner Settings</span>
+      </button>
     </div>
   </header>
 
-  <!-- Founder & Owner Profile Hero -->
-  <section class="hero">
-    <div class="founder-card">
-      <div class="founder-profile">
-        <div class="avatar-wrapper">
-          <img
-            id="founderAvatar"
-            src="image_87339e.jpg"
-            alt="Jawad Ahmad — Founder and Owner"
-            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22><rect width=%22200%22 height=%22200%22 fill=%22%230c152c%22/><circle cx=%22100%22 cy=%2276%22 r=%2238%22 fill=%22%2300f0ff%22/><path d=%22M35 182c8-36 36-54 65-54s57 18 65 54%22 fill=%22%2300f0ff%22/></svg>';"
-          />
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero-circuit-bg border-b border-cyanpulse-400/15 px-4 py-20 sm:px-6 sm:py-28">
+      <div class="mx-auto flex max-w-3xl flex-col items-center text-center">
+        <span class="mb-4 inline-flex items-center gap-2 rounded-full border border-cyanpulse-400/35 bg-navy-700/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cyanpulse-400">
+          <span class="h-2 w-2 rounded-full bg-cyanpulse-400 animate-pulse"></span>
+          Daily Tech Knowledge Hub
+        </span>
+
+        <h1 id="heroTitle" class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+          Welcome to Cyber World
+        </h1>
+
+        <p id="heroSubtitle" class="mt-5 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-xl">
+          Explore the world of technology, computers, internet, cybersecurity and digital knowledge.
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <a href="#technology" class="cyan-glow-btn inline-flex items-center justify-center rounded-2xl px-7 py-3.5 text-base font-bold">
+            Explore More
+          </a>
         </div>
-        <div class="founder-info">
-          <h2 id="displayOwnerName">Jawad Ahmad</h2>
-          <div class="founder-role" id="displayOwnerRole">Founder &amp; Owner</div>
-          <p class="founder-bio" id="displayOwnerBio">
-            Welcome to Cyber World — a dedicated daily technology hub sharing curated updates across Computer Systems, Internet Infrastructure, Cyber Security, and Artificial Intelligence.
+      </div>
+    </section>
+
+    <!-- About Cyber World Section -->
+    <section id="about" class="border-b border-cyanpulse-400/15 bg-navy-900 px-4 py-16 sm:px-6 sm:py-20">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="text-3xl font-extrabold tracking-tight text-cyanpulse-400 sm:text-4xl">
+          About Cyber World
+        </h2>
+
+        <div id="aboutParagraphs" class="mt-6 space-y-4 text-base leading-relaxed text-slate-200 sm:text-lg">
+          <p>
+            Welcome to Cyber World. This website is created by Jawad Ahmad.
+          </p>
+          <p>
+            Cyber World is a platform dedicated to technology, computers, the internet, cybersecurity and digital knowledge. Our goal is to share useful information and help people understand modern technology. We believe learning technology can create a better future.
+          </p>
+        </div>
+
+        <!-- Circular Cyan-Bordered Profile Avatar -->
+        <div class="mt-10 flex flex-col items-center">
+          <div class="relative flex h-36 w-36 sm:h-40 sm:w-40 items-center justify-center overflow-hidden rounded-full border-4 border-cyanpulse-400 bg-navy-700 profile-ring">
+            <img id="ownerProfileImg"
+                 src="image_87339e.jpg"
+                 alt="Jawad Ahmad — Founder & Website Owner"
+                 class="h-full w-full object-cover object-top"
+                 onerror="handleProfileImageError()" />
+            <!-- Clean SVG Fallback if local photo is not yet placed alongside HTML or uploaded -->
+            <div id="ownerProfileFallback" class="hidden h-full w-full flex-col items-center justify-center bg-navy-700 text-cyanpulse-400">
+              <svg class="h-16 w-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" />
+              </svg>
+              <span class="mt-1 text-[11px] font-semibold uppercase tracking-wide text-slate-300">JA</span>
+            </div>
+          </div>
+
+          <h3 id="ownerNameDisplay" class="mt-5 text-2xl font-bold text-white">
+            Jawad Ahmad
+          </h3>
+          <p id="ownerRoleDisplay" class="mt-1 text-sm font-semibold tracking-wide text-cyanpulse-400 sm:text-base">
+            Founder &amp; Website Owner
           </p>
         </div>
       </div>
+    </section>
 
-      <div class="founder-contact">
-        <h3>Official Contact &amp; Ownership</h3>
-        <div class="contact-item">
-          <span>&#9993;</span>
-          <a id="displayOwnerEmail" href="mailto:jawadahmad44@icloud.com">jawadahmad44@icloud.com</a>
+    <!-- Explore Technology Section -->
+    <section id="technology" class="border-b border-cyanpulse-400/15 bg-navy-950/60 px-4 py-16 sm:px-6 sm:py-24">
+      <div class="mx-auto max-w-5xl">
+        <div class="text-center">
+          <h2 class="text-3xl font-extrabold tracking-tight text-cyanpulse-400 sm:text-4xl">
+            Explore Technology
+          </h2>
+          <p class="mx-auto mt-3 max-w-2xl text-sm text-slate-300 sm:text-base">
+            Daily curated updates across four core pillars. Select any card to read today&apos;s featured technology briefing and recent entries.
+          </p>
         </div>
-        <div class="contact-item">
-          <span>&#128274;</span>
-          <span>Admin Control: <strong>Jawad Ahmad Only</strong></span>
-        </div>
-        <div class="contact-item">
-          <span>&#128065;</span>
-          <span>Public Access: <strong>Read-Only</strong></span>
+
+        <!-- 4 Technology Cards Grid -->
+        <div id="technologyCardsGrid" class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+          <!-- Cards dynamically rendered from state so daily updates & edits appear immediately -->
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Authenticated Owner Dashboard Bar -->
-  <section class="owner-bar" id="ownerBar">
-    <div class="owner-bar-inner">
-      <p>&#9989; Verified Owner Session: Jawad Ahmad — Full Administrative Access Enabled</p>
-      <div class="owner-controls">
-        <button class="btn btn-primary btn-sm" id="openAddModalBtn">+ Post Daily Tech Update</button>
-        <button class="btn btn-sm" id="openSettingsModalBtn">&#9881; Profile &amp; Security Settings</button>
+    <!-- Contact Us Section -->
+    <section id="contact" class="bg-navy-900 px-4 py-16 sm:px-6 sm:py-20">
+      <div class="mx-auto max-w-2xl rounded-3xl border border-cyanpulse-400/25 bg-navy-700/75 p-8 text-center shadow-xl sm:p-10">
+        <h2 class="text-3xl font-extrabold tracking-tight text-cyanpulse-400 sm:text-4xl">
+          Contact Us
+        </h2>
+        <p class="mt-3 text-base text-slate-200">
+          Have questions, suggestions or feedback? Feel free to contact us.
+        </p>
+
+        <div class="mt-6 space-y-2 text-base sm:text-lg">
+          <p class="text-slate-200">
+            <span class="font-semibold text-white">Website Owner:</span>
+            <span id="contactOwnerName" class="text-cyanpulse-400 font-semibold">Jawad Ahmad</span>
+          </p>
+          <p class="text-slate-200 break-all">
+            <span class="font-semibold text-white">Email Address:</span>
+            <a id="contactEmailLink" href="mailto:jawadahmad44@icloud.com" class="text-cyanpulse-400 underline decoration-cyanpulse-400/50 underline-offset-4 hover:text-white">
+              jawadahmad44@icloud.com
+            </a>
+          </p>
+        </div>
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a id="sendEmailActionBtn" href="mailto:jawadahmad44@icloud.com?subject=Cyber%20World%20Inquiry"
+             class="cyan-glow-btn inline-flex items-center justify-center gap-2 rounded-2xl px-7 py-3.5 text-base font-bold">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+            </svg>
+            <span>Send an Email</span>
+          </a>
+          <button id="copyEmailBtn" type="button"
+                  class="inline-flex items-center justify-center rounded-2xl border border-cyanpulse-400/35 bg-navy-800 px-5 py-3.5 text-sm font-semibold text-slate-200 transition hover:border-cyanpulse-400 hover:text-cyanpulse-400">
+            Copy Email
+          </button>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Main 4 Technology Sections -->
-  <main>
-    <div class="section-header">
-      <h2>Daily Technology Feed</h2>
-      <span id="lastUpdatedLabel">Updated Daily by Founder &amp; Owner</span>
-    </div>
-
-    <div class="categories-grid" id="categoriesGrid">
-      {/* Rendered dynamically by JS */}
-    </div>
+    </section>
   </main>
 
   <!-- Footer -->
-  <footer>
-    <p>
-      &copy; 2026 <strong>Cyber World</strong>. Founded &amp; Owned exclusively by <strong>Jawad Ahmad</strong>
-      (<a href="mailto:jawadahmad44@icloud.com" style="color: var(--cyan-primary); text-decoration: none;">jawadahmad44@icloud.com</a>). All rights reserved.
-    </p>
+  <footer class="border-t border-cyanpulse-400/15 bg-navy-950 px-4 py-8 text-center text-sm text-slate-400">
+    <div class="mx-auto max-w-5xl space-y-1">
+      <p id="footerCopyright" class="font-medium text-slate-300">
+        &copy; 2026 Cyber World. All Rights Reserved. Created by Jawad Ahmad.
+      </p>
+      <p class="text-xs text-slate-500">
+        Visitor Read-Only Portal &bull; Daily Technology Updates
+      </p>
+    </div>
   </footer>
 
-  <!-- Modal 1: Owner Login -->
-  <div class="modal-backdrop" id="loginModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>Owner Authentication — Jawad Ahmad</h3>
-        <button class="close-modal" data-close="loginModal">&times;</button>
+  <!-- Category Daily Updates Reader Modal (For Visitors & Owner) -->
+  <div id="categoryModal" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle"
+       class="fixed inset-0 z-50 hidden items-center justify-center bg-navy-950/80 p-4 backdrop-blur-sm">
+    <div class="relative max-h-[88vh] w-full max-w-2xl overflow-y-auto rounded-3xl border border-cyanpulse-400/40 bg-navy-800 p-6 shadow-2xl sm:p-8">
+      <div class="flex items-start justify-between gap-4 border-b border-cyanpulse-400/15 pb-4">
+        <div class="flex items-center gap-3">
+          <div id="categoryModalIcon" class="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyanpulse-400/35 bg-navy-700 text-cyanpulse-400"></div>
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-cyanpulse-400">Daily Tech Briefings</span>
+            <h3 id="categoryModalTitle" class="text-2xl font-extrabold text-white">Category</h3>
+          </div>
+        </div>
+        <button id="closeCategoryModalBtn" type="button" aria-label="Close modal"
+                class="rounded-xl border border-slate-600/50 bg-navy-700 p-2 text-slate-300 transition hover:border-cyanpulse-400 hover:text-white">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
       </div>
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="loginOwnerName">Owner Name / GitHub Account</label>
-          <input type="text" id="loginOwnerName" value="Jawad Ahmad" required />
-        </div>
-        <div class="form-group">
-          <label for="loginPassword">Owner Access Password</label>
-          <input type="password" id="loginPassword" placeholder="Enter owner password" required />
-          <small style="color: var(--text-secondary); font-size: 0.78rem; display: block; margin-top: 0.35rem;">
-            Default Owner Password: <code>jawad@2026</code> (changeable in Owner Settings)
-          </small>
-        </div>
-        <p class="error-msg" id="loginError">Access Denied: Invalid owner credentials.</p>
-        <div class="modal-footer">
-          <button type="button" class="btn" data-close="loginModal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Verify &amp; Unlock</button>
-        </div>
-      </form>
+
+      <p id="categoryModalSummary" class="mt-4 text-sm leading-relaxed text-slate-300 sm:text-base"></p>
+
+      <div id="categoryPostsList" class="mt-6 space-y-4">
+        <!-- Daily posts for this category injected here -->
+      </div>
     </div>
   </div>
 
-  <!-- Modal 2: Add / Edit Daily Update (Owner Only) -->
-  <div class="modal-backdrop" id="postModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h3 id="postModalTitle">Post Daily Technology Update</h3>
-        <button class="close-modal" data-close="postModal">&times;</button>
+  <!-- Owner / Admin Settings Modal -->
+  <div id="ownerModal" role="dialog" aria-modal="true" aria-labelledby="ownerModalTitle"
+       class="fixed inset-0 z-50 hidden items-center justify-center bg-navy-950/85 p-3 sm:p-6 backdrop-blur-sm">
+    <div class="relative max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-cyanpulse-400/45 bg-navy-800 p-5 shadow-2xl sm:p-8">
+      <div class="flex items-start justify-between gap-4 border-b border-cyanpulse-400/20 pb-4">
+        <div>
+          <span class="inline-block rounded-full bg-cyanpulse-400/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-cyanpulse-400">
+            Owner Control Center
+          </span>
+          <h3 id="ownerModalTitle" class="mt-2 text-2xl font-extrabold text-white">
+            Website Settings &amp; Daily Tech Updates
+          </h3>
+          <p class="mt-1 text-xs sm:text-sm text-slate-300">
+            Manage your profile photo, ownership details, and add or edit daily technology items across all 4 categories. Changes save automatically to your browser storage (<code class="text-cyanpulse-400">localStorage</code>).
+          </p>
+        </div>
+        <button id="closeOwnerModalBtn" type="button" aria-label="Close Owner Settings"
+                class="rounded-xl border border-slate-600/50 bg-navy-700 p-2 text-slate-300 transition hover:border-cyanpulse-400 hover:text-white">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
       </div>
-      <form id="postForm">
-        <input type="hidden" id="editPostId" />
-        <div class="form-group">
-          <label for="postCategory">Technology Section</label>
-          <select id="postCategory" required>
-            <option value="computer">Computer</option>
-            <option value="internet">Internet</option>
-            <option value="cybersecurity">Cyber Security</option>
-            <option value="ai">Artificial Intelligence</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="postTitle">Headline / Topic Title</label>
-          <input type="text" id="postTitle" placeholder="e.g., Next-Gen Quantum Encryption Standards" required />
-        </div>
-        <div class="form-group">
-          <label for="postDesc">Details &amp; Daily Summary</label>
-          <textarea id="postDesc" rows="4" placeholder="Write today's technology insight..." required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="postImageFile">Attach Image (Optional)</label>
-          <input type="file" id="postImageFile" accept="image/*" />
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn" data-close="postModal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Publish Update</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
-  <!-- Modal 3: Owner Profile & Security Settings (Owner Only) -->
-  <div class="modal-backdrop" id="settingsModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>Owner Profile &amp; Security Settings</h3>
-        <button class="close-modal" data-close="settingsModal">&times;</button>
+      <!-- Tabs inside Owner Panel -->
+      <div class="mt-5 flex flex-wrap gap-2 border-b border-cyanpulse-400/15 pb-4 text-sm font-semibold">
+        <button id="tabDailyUpdatesBtn" type="button"
+                class="owner-tab-btn rounded-xl bg-cyanpulse-400 px-4 py-2 text-navy-950 transition">
+          Daily Tech Updates (4 Categories)
+        </button>
+        <button id="tabProfileOwnerBtn" type="button"
+                class="owner-tab-btn rounded-xl border border-cyanpulse-400/30 bg-navy-700 px-4 py-2 text-slate-200 transition hover:border-cyanpulse-400 hover:text-cyanpulse-400">
+          Profile Photo &amp; Ownership Settings
+        </button>
       </div>
-      <form id="settingsForm">
-        <div class="form-group">
-          <label for="setOwnerName">Founder &amp; Owner Name</label>
-          <input type="text" id="setOwnerName" required />
+
+      <!-- Tab 1: Daily Tech Updates Manager -->
+      <div id="ownerTabDailyUpdates" class="mt-6 space-y-6">
+        <form id="dailyPostForm" class="rounded-2xl border border-cyanpulse-400/25 bg-navy-700/70 p-4 sm:p-5 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h4 id="postFormHeading" class="text-base font-bold text-white">Add Daily Technology Update</h4>
+            <button id="cancelEditPostBtn" type="button" class="hidden text-xs font-semibold text-cyanpulse-400 hover:underline">
+              Cancel Edit
+            </button>
+          </div>
+
+          <input type="hidden" id="editingPostId" value="" />
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label for="postCategorySelect" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+                Technology Category
+              </label>
+              <select id="postCategorySelect"
+                      class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white focus:border-cyanpulse-400 focus:outline-none">
+                <option value="computer">Computer</option>
+                <option value="internet">Internet</option>
+                <option value="cybersecurity">Cyber Security</option>
+                <option value="ai">Artificial Intelligence</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="postDateInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+                Update Date
+              </label>
+              <input id="postDateInput" type="date" required
+                     class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white focus:border-cyanpulse-400 focus:outline-none" />
+            </div>
+          </div>
+
+          <div>
+            <label for="postTitleInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              Daily Tech Headline / Topic
+            </label>
+            <input id="postTitleInput" type="text" required placeholder="e.g., Next-Gen RISC-V Processors & Low-Power Architecture"
+                   class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-cyanpulse-400 focus:outline-none" />
+          </div>
+
+          <div>
+            <label for="postSummaryInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              Card Preview Summary (Short)
+            </label>
+            <input id="postSummaryInput" type="text" required placeholder="Short summary shown on the main technology card..."
+                   class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-cyanpulse-400 focus:outline-none" />
+          </div>
+
+          <div>
+            <label for="postDetailsInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              Full Daily Briefing / Notes
+            </label>
+            <textarea id="postDetailsInput" rows="3" required placeholder="Write the full daily technology update that visitors can read when opening the category..."
+                      class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-cyanpulse-400 focus:outline-none"></textarea>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+            <span class="text-xs text-slate-400">
+              The latest item in each category automatically highlights on its main card.
+            </span>
+            <button type="submit" id="savePostSubmitBtn"
+                    class="cyan-glow-btn rounded-xl px-5 py-2.5 text-sm font-bold">
+              Publish Daily Update
+            </button>
+          </div>
+        </form>
+
+        <!-- Existing Daily Posts List -->
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <h4 class="text-base font-bold text-white">Published Daily Items</h4>
+            <select id="filterManageCategory"
+                    class="rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3 py-1.5 text-xs font-semibold text-cyanpulse-400 focus:outline-none">
+              <option value="all">All 4 Categories</option>
+              <option value="computer">Computer</option>
+              <option value="internet">Internet</option>
+              <option value="cybersecurity">Cyber Security</option>
+              <option value="ai">Artificial Intelligence</option>
+            </select>
+          </div>
+          <div id="managePostsList" class="space-y-3">
+            <!-- Populated dynamically -->
+          </div>
         </div>
-        <div class="form-group">
-          <label for="setOwnerRole">Title / Designation</label>
-          <input type="text" id="setOwnerRole" required />
+      </div>
+
+      <!-- Tab 2: Profile Photo & Ownership Settings -->
+      <div id="ownerTabProfileSettings" class="mt-6 hidden space-y-6">
+        <!-- Photo Setup Helper & Upload -->
+        <div class="rounded-2xl border border-cyanpulse-400/30 bg-navy-700/75 p-4 sm:p-5 space-y-4">
+          <h4 class="text-base font-bold text-cyanpulse-400">
+            Founder Profile Picture (<code class="text-white">image_87339e.jpg</code>)
+          </h4>
+          <p class="text-xs sm:text-sm leading-relaxed text-slate-200">
+            <strong>How to display your photo:</strong> Place <code class="rounded bg-navy-950 px-1.5 py-0.5 text-cyanpulse-400">image_87339e.jpg</code> in the <strong>exact same folder</strong> as this HTML file, or upload/select your photo directly below to preview and save it in your browser.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <label class="cursor-pointer rounded-xl border border-cyanpulse-400/45 bg-navy-800 px-4 py-2.5 text-xs sm:text-sm font-semibold text-cyanpulse-400 transition hover:bg-navy-900">
+              <span>Upload / Choose Photo</span>
+              <input id="profilePhotoUploadInput" type="file" accept="image/*" class="hidden" />
+            </label>
+            <button id="resetPhotoToDefaultFileBtn" type="button"
+                    class="rounded-xl border border-slate-600/60 bg-navy-800 px-4 py-2.5 text-xs sm:text-sm font-medium text-slate-300 transition hover:border-cyanpulse-400 hover:text-white">
+              Use <code class="text-cyanpulse-400">image_87339e.jpg</code> Path
+            </button>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="setOwnerEmail">Contact Email</label>
-          <input type="email" id="setOwnerEmail" required />
-        </div>
-        <div class="form-group">
-          <label for="setOwnerBio">Profile Bio</label>
-          <textarea id="setOwnerBio" rows="2" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="setAvatarFile">Update Profile Picture</label>
-          <input type="file" id="setAvatarFile" accept="image/*" />
-        </div>
-        <div class="form-group">
-          <label for="setNewPassword">Update Owner Password (leave blank to keep current)</label>
-          <input type="password" id="setNewPassword" placeholder="New password" />
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn" data-close="settingsModal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Settings</button>
-        </div>
-      </form>
+
+        <!-- Ownership & Site Details Form -->
+        <form id="ownershipSettingsForm" class="rounded-2xl border border-cyanpulse-400/25 bg-navy-700/70 p-4 sm:p-5 space-y-4">
+          <h4 class="text-base font-bold text-white">Ownership &amp; Website Details</h4>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label for="settingSiteName" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+                Website Name
+              </label>
+              <input id="settingSiteName" type="text" required
+                     class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white focus:border-cyanpulse-400 focus:outline-none" />
+            </div>
+
+            <div>
+              <label for="settingOwnerName" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+                Founder &amp; Owner Name
+              </label>
+              <input id="settingOwnerName" type="text" required
+                     class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white focus:border-cyanpulse-400 focus:outline-none" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label for="settingOwnerRole" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+                Profile Subtitle / Role
+              </label>
+              <input id="settingOwnerRole" type="text" required
+                     class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white focus:border-cyanpulse-400 focus:outline-none" />
+            </div>
+
+            <div>
+              <label for="settingContactEmail" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+                Contact Email Address
+              </label>
+              <input id="settingContactEmail" type="email" required
+                     class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white focus:border-cyanpulse-400 focus:outline-none" />
+            </div>
+          </div>
+
+          <div>
+            <label for="settingHeroSubtitle" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              Hero Subtitle
+            </label>
+            <input id="settingHeroSubtitle" type="text" required
+                   class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white focus:border-cyanpulse-400 focus:outline-none" />
+          </div>
+
+          <div>
+            <label for="settingAboutText" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              About Cyber World Description
+            </label>
+            <textarea id="settingAboutText" rows="4" required
+                      class="mt-1.5 w-full rounded-xl border border-cyanpulse-400/30 bg-navy-900 px-3.5 py-2.5 text-sm text-white focus:border-cyanpulse-400 focus:outline-none"></textarea>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+            <button id="restoreDefaultAllBtn" type="button"
+                    class="rounded-xl border border-rose-400/40 bg-navy-900 px-4 py-2 text-xs font-semibold text-rose-300 transition hover:bg-rose-950/50">
+              Restore Default Content
+            </button>
+            <button type="submit"
+                    class="cyan-glow-btn rounded-xl px-6 py-2.5 text-sm font-bold">
+              Save Ownership Settings
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
   <script>
-    (function () {
-      const STORAGE_KEY = 'cyber_world_jawad_v1';
-      const SESSION_KEY = 'cyber_world_owner_session';
-      const UNLOCK_KEY = 'cyber_world_nav_unlocked';
+    /**
+     * Cyber World Application State & Daily Technology Manager
+     * Persists ownership settings and daily updates across the 4 technology categories
+     * in localStorage so visitors see a clean read-only site while the owner can
+     * add/edit daily technology items and ownership settings anytime.
+     */
+    const STORAGE_KEY = 'cyber_world_state_v1';
 
-      const CATEGORIES = [
-        { id: 'computer', title: 'Computer', subtitle: 'Hardware, OS & Computing Architecture', icon: '&#128187;' },
-        { id: 'internet', title: 'Internet', subtitle: 'Cloud Networks, Web3 & Connectivity', icon: '&#127760;' },
-        { id: 'cybersecurity', title: 'Cyber Security', subtitle: 'Threat Defense, Privacy & Zero-Trust', icon: '&#128737;' },
-        { id: 'ai', title: 'Artificial Intelligence', subtitle: 'LLMs, Neural Networks & Automation', icon: '&#129302;' }
-      ];
-
-      const DEFAULT_STATE = {
-        owner: {
-          name: 'Jawad Ahmad',
-          role: 'Founder & Owner',
-          email: 'jawadahmad44@icloud.com',
-          bio: 'Welcome to Cyber World — a dedicated daily technology hub sharing curated updates across Computer Systems, Internet Infrastructure, Cyber Security, and Artificial Intelligence.',
-          avatar: 'image_87339e.jpg',
-          passwordHash: 'jawad@2026'
-        },
-        posts: [
-          {
-            id: 'p1',
-            category: 'computer',
-            title: 'RISC-V & Next-Gen Custom Silicon',
-            desc: 'Open-source processor architectures are reshaping workstation efficiency and edge computing hardware.',
-            date: 'Nov 25, 2026',
-            image: ''
-          },
-          {
-            id: 'p2',
-            category: 'internet',
-            title: 'Satellite Mesh & Low-Latency Global Routing',
-            desc: 'Next-generation optical inter-satellite links are reducing transcontinental packet latency.',
-            date: 'Nov 25, 2026',
-            image: ''
-          },
-          {
-            id: 'p3',
-            category: 'cybersecurity',
-            title: 'Post-Quantum Cryptography Migration',
-            desc: 'Organizations are adopting lattice-based encryption standards to protect sensitive data against quantum decryption.',
-            date: 'Nov 25, 2026',
-            image: ''
-          },
-          {
-            id: 'p4',
-            category: 'ai',
-            title: 'Autonomous Multi-Agent Reasoning Systems',
-            desc: 'Modern AI models combine real-time tool execution with verifiable step-by-step reasoning workflows.',
-            date: 'Nov 25, 2026',
-            image: ''
-          }
+    const DEFAULT_STATE = {
+      settings: {
+        siteName: 'Cyber World',
+        heroTitle: 'Welcome to Cyber World',
+        heroSubtitle: 'Explore the world of technology, computers, internet, cybersecurity and digital knowledge.',
+        ownerName: 'Jawad Ahmad',
+        ownerRole: 'Founder & Website Owner',
+        contactEmail: 'jawadahmad44@icloud.com',
+        profileImageSrc: 'image_87339e.jpg',
+        aboutParagraphs: [
+          'Welcome to Cyber World. This website is created by Jawad Ahmad.',
+          'Cyber World is a platform dedicated to technology, computers, the internet, cybersecurity and digital knowledge. Our goal is to share useful information and help people understand modern technology. We believe learning technology can create a better future.'
         ]
-      };
-
-      let state = loadState();
-      let isOwner = sessionStorage.getItem(SESSION_KEY) === 'true';
-      let isUnlocked = sessionStorage.getItem(UNLOCK_KEY) === 'true';
-
-      // Triple-click / Multi-click Brand Icon to reveal Owner Login navigation item
-      let clickCount = 0;
-      document.getElementById('brandTrigger').addEventListener('click', () => {
-        clickCount++;
-        if (clickCount >= 5) {
-          isUnlocked = true;
-          sessionStorage.setItem(UNLOCK_KEY, 'true');
-          updateAuthUI();
-          clickCount = 0;
+      },
+      categories: [
+        {
+          id: 'computer',
+          title: 'Computer',
+          defaultSummary: 'Learn about computers, hardware, software and useful computer knowledge.',
+          icon: 'computer'
+        },
+        {
+          id: 'internet',
+          title: 'Internet',
+          defaultSummary: 'Discover websites, online services, networking and internet technology.',
+          icon: 'internet'
+        },
+        {
+          id: 'cybersecurity',
+          title: 'Cyber Security',
+          defaultSummary: 'Understand online safety, digital privacy and ways to protect your information.',
+          icon: 'security'
+        },
+        {
+          id: 'ai',
+          title: 'Artificial Intelligence',
+          defaultSummary: 'Explore AI, smart technology and the future of digital innovation.',
+          icon: 'ai'
         }
-      });
+      ],
+      posts: [
+        {
+          id: 'comp-1',
+          categoryId: 'computer',
+          date: '2026-11-25',
+          title: 'Modern CPU Efficiency & Solid-State Storage Basics',
+          summary: 'Learn about computers, hardware, software and useful computer knowledge.',
+          details: 'Today’s computer systems balance multi-core efficiency with fast NVMe storage and clean operating system maintenance. Understanding RAM channels, thermal airflow, and regular software updates helps keep everyday PCs and laptops fast and reliable.'
+        },
+        {
+          id: 'net-1',
+          categoryId: 'internet',
+          date: '2026-11-25',
+          title: 'How DNS, HTTPS & Edge Networks Power the Web',
+          summary: 'Discover websites, online services, networking and internet technology.',
+          details: 'Every time you visit a website, DNS resolves the domain name, TLS encrypts your connection over HTTPS, and global edge servers deliver content closer to your location with lower latency.'
+        },
+        {
+          id: 'sec-1',
+          categoryId: 'cybersecurity',
+          date: '2026-11-25',
+          title: 'Strong Passphrases, MFA & Phishing Awareness',
+          summary: 'Understand online safety, digital privacy and ways to protect your information.',
+          details: 'Protecting digital accounts starts with unique passphrases, authenticator-based multi-factor authentication (MFA), and verifying links before entering credentials. Keeping browsers and apps updated closes known security gaps.'
+        },
+        {
+          id: 'ai-1',
+          categoryId: 'ai',
+          date: '2026-11-25',
+          title: 'Practical AI Assistants & On-Device Smart Tools',
+          summary: 'Explore AI, smart technology and the future of digital innovation.',
+          details: 'Artificial intelligence is transforming education, coding, research, and productivity. Reviewing AI-generated outputs critically and safeguarding private data remain essential habits as smart tools evolve.'
+        }
+      ]
+    };
 
-      function loadState() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return structuredClone(DEFAULT_STATE);
-          const parsed = JSON.parse(raw);
-          return {
-            owner: { ...DEFAULT_STATE.owner, ...(parsed.owner || {}) },
-            posts: Array.isArray(parsed.posts) ? parsed.posts : structuredClone(DEFAULT_STATE.posts)
-          };
-        } catch (e) {
+    let appState = loadAppState();
+    let toastTimeout = null;
+
+    /**
+     * Loads saved state from localStorage safely with fallback to DEFAULT_STATE.
+     */
+    function loadAppState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
           return structuredClone(DEFAULT_STATE);
         }
+        const parsed = JSON.parse(raw);
+        return {
+          settings: {
+            ...DEFAULT_STATE.settings,
+            ...(parsed.settings || {}),
+            aboutParagraphs: Array.isArray(parsed?.settings?.aboutParagraphs) && parsed.settings.aboutParagraphs.length
+              ? parsed.settings.aboutParagraphs
+              : DEFAULT_STATE.settings.aboutParagraphs
+          },
+          categories: DEFAULT_STATE.categories,
+          posts: Array.isArray(parsed.posts) && parsed.posts.length
+            ? parsed.posts
+            : structuredClone(DEFAULT_STATE.posts)
+        };
+      } catch (err) {
+        console.error('Failed to load saved state:', err);
+        return structuredClone(DEFAULT_STATE);
       }
+    }
 
-      function saveState() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    /**
+     * Persists current state to localStorage.
+     */
+    function saveAppState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (err) {
+        console.error('Failed to save state to localStorage:', err);
+        showToast('Could not save large data to browser storage.');
       }
+    }
 
-      function enforceOwnerAccess() {
-        if (!isOwner) {
-          alert('Unauthorized: Only Founder & Owner Jawad Ahmad can modify Cyber World content.');
-          return false;
-        }
-        return true;
+    /**
+     * Shows a non-blocking status toast message.
+     */
+    function showToast(message) {
+      const toast = document.getElementById('statusToast');
+      const toastMsg = document.getElementById('statusToastMessage');
+      if (!toast || !toastMsg) return;
+      toastMsg.textContent = message;
+      toast.classList.remove('hidden');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3200);
+    }
+
+    /**
+     * Escapes HTML strings to prevent markup injection when rendering user input.
+     */
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    /**
+     * Returns inline SVG icon markup for each of the 4 technology categories.
+     */
+    function getCategoryIconSvg(iconKey) {
+      switch (iconKey) {
+        case 'computer':
+          return `
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8M12 17v4" />
+            </svg>`;
+        case 'internet':
+          return `
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M3 12h18M12 3a14.5 14.5 0 0 1 0 18 14.5 14.5 0 0 1 0-18Z" />
+            </svg>`;
+        case 'security':
+          return `
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="11" width="14" height="10" rx="2" />
+              <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+            </svg>`;
+        case 'ai':
+        default:
+          return `
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="7" width="14" height="12" rx="3" />
+              <path d="M12 3v4M9 13h.01M15 13h.01M9.5 16.5c1.5 1 3.5 1 5 0" />
+            </svg>`;
       }
+    }
 
-      function updateAuthUI() {
-        const body = document.body;
-        const ownerBar = document.getElementById('ownerBar');
+    /**
+     * Handles fallback display if local profile photo isn't loaded yet.
+     */
+    function handleProfileImageError() {
+      const img = document.getElementById('ownerProfileImg');
+      const fallback = document.getElementById('ownerProfileFallback');
+      if (img) img.classList.add('hidden');
+      if (fallback) fallback.classList.remove('hidden');
+    }
 
-        if (isUnlocked) {
-          body.classList.add('owner-unlocked');
-        } else {
-          body.classList.remove('owner-unlocked');
-        }
+    /**
+     * Returns posts for a specific category sorted newest date first.
+     */
+    function getPostsForCategory(categoryId) {
+      return appState.posts
+        .filter((p) => p.categoryId === categoryId)
+        .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+    }
 
-        if (isOwner) {
-          body.classList.add('owner-authenticated');
-          ownerBar.classList.add('active');
-        } else {
-          body.classList.remove('owner-authenticated');
-          ownerBar.classList.remove('active');
-        }
-      }
+    /**
+     * Renders all sections from current state.
+     */
+    function renderAll() {
+      const { settings, categories } = appState;
 
-      function renderProfile() {
-        document.getElementById('displayOwnerName').textContent = state.owner.name;
-        document.getElementById('displayOwnerRole').textContent = state.owner.role;
-        document.getElementById('displayOwnerBio').textContent = state.owner.bio;
+      document.title = `${settings.siteName} — ${settings.ownerName}`;
+      document.getElementById('brandTitleText').textContent = settings.siteName;
+      document.getElementById('heroTitle').textContent = settings.heroTitle;
+      document.getElementById('heroSubtitle').textContent = settings.heroSubtitle;
 
-        const emailEl = document.getElementById('displayOwnerEmail');
-        emailEl.textContent = state.owner.email;
-        emailEl.href = 'mailto:' + state.owner.email;
+      // About paragraphs
+      const aboutContainer = document.getElementById('aboutParagraphs');
+      aboutContainer.innerHTML = settings.aboutParagraphs
+        .map((para) => `<p>${escapeHtml(para)}</p>`)
+        .join('');
 
-        const avatarEl = document.getElementById('founderAvatar');
-        if (state.owner.avatar) {
-          avatarEl.src = state.owner.avatar;
-        }
-      }
+      // Profile image & labels
+      const imgEl = document.getElementById('ownerProfileImg');
+      const fallbackEl = document.getElementById('ownerProfileFallback');
+      fallbackEl.classList.add('hidden');
+      imgEl.classList.remove('hidden');
+      imgEl.alt = `${settings.ownerName} — ${settings.ownerRole}`;
+      imgEl.src = settings.profileImageSrc || 'image_87339e.jpg';
 
-      function renderCategories() {
-        const grid = document.getElementById('categoriesGrid');
-        grid.innerHTML = '';
+      document.getElementById('ownerNameDisplay').textContent = settings.ownerName;
+      document.getElementById('ownerRoleDisplay').textContent = settings.ownerRole;
 
-        CATEGORIES.forEach(cat => {
-          const catPosts = state.posts.filter(p => p.category === cat.id);
+      // Contact & Footer
+      document.getElementById('contactOwnerName').textContent = settings.ownerName;
+      const emailLink = document.getElementById('contactEmailLink');
+      emailLink.textContent = settings.contactEmail;
+      emailLink.href = `mailto:${settings.contactEmail}`;
 
-          const card = document.createElement('article');
-          card.className = 'category-card';
+      const sendBtn = document.getElementById('sendEmailActionBtn');
+      sendBtn.href = `mailto:${encodeURIComponent(settings.contactEmail)}?subject=${encodeURIComponent(settings.siteName + ' Inquiry')}`;
 
-          const postsHTML = catPosts.length
-            ? catPosts.map(post => `
-                <div class="update-item">
-                  <div class="update-meta">
-                    <span class="update-date">&#128197; ${escapeHTML(post.date)}</span>
-                    <span class="update-date">By ${escapeHTML(state.owner.name)}</span>
-                  </div>
-                  <div class="update-title">${escapeHTML(post.title)}</div>
-                  <div class="update-desc">${escapeHTML(post.desc)}</div>
-                  ${post.image ? `<img class="update-img" src="${post.image}" alt="${escapeHTML(post.title)}" />` : ''}
-                  <div class="item-owner-actions">
-                    <button class="btn btn-sm" data-edit="${post.id}">Edit</button>
-                    <button class="btn btn-danger btn-sm" data-delete="${post.id}">Delete</button>
-                  </div>
-                </div>
-              `).join('')
-            : `<p style="color: var(--text-secondary); font-size: 0.9rem;">No updates posted in ${escapeHTML(cat.title)} yet.</p>`;
+      document.getElementById('footerCopyright').innerHTML =
+        `&copy; 2026 ${escapeHtml(settings.siteName)}. All Rights Reserved. Created by ${escapeHtml(settings.ownerName)}.`;
 
-          card.innerHTML = `
-            <div class="card-top">
-              <div class="card-title-group">
-                <div class="cat-icon">${cat.icon}</div>
-                <div>
-                  <h3>${escapeHTML(cat.title)}</h3>
-                  <div class="card-subtitle">${escapeHTML(cat.subtitle)}</div>
-                </div>
-              </div>
-              <button class="btn btn-sm owner-only-btn" data-quick-add="${cat.id}">+ Add</button>
+      // Render 4 Technology Cards
+      const grid = document.getElementById('technologyCardsGrid');
+      grid.innerHTML = categories.map((cat) => {
+        const catPosts = getPostsForCategory(cat.id);
+        const latestPost = catPosts[0];
+        const displaySummary = latestPost ? latestPost.summary : cat.defaultSummary;
+        const latestDate = latestPost?.date ? escapeHtml(latestPost.date) : 'Daily';
+
+        return `
+          <article role="button" tabindex="0"
+                   data-category-id="${escapeHtml(cat.id)}"
+                   class="tech-card group flex cursor-pointer flex-col items-center rounded-3xl p-7 text-center focus:outline-none focus:ring-2 focus:ring-cyanpulse-400">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl border border-cyanpulse-400/35 bg-navy-800 text-cyanpulse-400 transition group-hover:scale-105 group-hover:border-cyanpulse-400">
+              ${getCategoryIconSvg(cat.icon)}
             </div>
-            <div class="updates-list">${postsHTML}</div>
-          `;
 
-          grid.appendChild(card);
+            <div class="mt-4 flex items-center gap-2">
+              <h3 class="text-2xl font-bold text-white group-hover:text-cyanpulse-400 transition">
+                ${escapeHtml(cat.title)}
+              </h3>
+            </div>
+
+            <p class="mt-2.5 text-sm leading-relaxed text-slate-300 sm:text-base">
+              ${escapeHtml(displaySummary)}
+            </p>
+
+            ${latestPost ? `
+              <div class="mt-4 w-full rounded-2xl border border-cyanpulse-400/15 bg-navy-900/75 px-4 py-2.5 text-left">
+                <div class="flex items-center justify-between gap-2 text-[11px] font-semibold uppercase tracking-wider text-cyanpulse-400">
+                  <span>Latest Daily Update</span>
+                  <span>${latestDate}</span>
+                </div>
+                <p class="mt-1 text-xs sm:text-sm font-semibold text-white line-clamp-1">
+                  ${escapeHtml(latestPost.title)}
+                </p>
+              </div>
+            ` : ''}
+
+            <span class="mt-5 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-cyanpulse-400">
+              <span>View Daily Updates (${catPosts.length})</span>
+              <span aria-hidden="true">&rarr;</span>
+            </span>
+          </article>
+        `;
+      }).join('');
+
+      // Attach click & keyboard handlers to cards
+      grid.querySelectorAll('[data-category-id]').forEach((card) => {
+        const catId = card.getAttribute('data-category-id');
+        card.addEventListener('click', () => openCategoryModal(catId));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openCategoryModal(catId);
+          }
         });
-
-        // Attach owner-only dynamic handlers
-        grid.querySelectorAll('[data-quick-add]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            if (!enforceOwnerAccess()) return;
-            openPostModal(null, btn.getAttribute('data-quick-add'));
-          });
-        });
-
-        grid.querySelectorAll('[data-edit]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            if (!enforceOwnerAccess()) return;
-            const post = state.posts.find(p => p.id === btn.getAttribute('data-edit'));
-            if (post) openPostModal(post);
-          });
-        });
-
-        grid.querySelectorAll('[data-delete]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            if (!enforceOwnerAccess()) return;
-            const id = btn.getAttribute('data-delete');
-            if (confirm('Delete this daily update?')) {
-              state.posts = state.posts.filter(p => p.id !== id);
-              saveState();
-              renderCategories();
-            }
-          });
-        });
-      }
-
-      function escapeHTML(str) {
-        return String(str)
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;');
-      }
-
-      function openModal(id) {
-        document.getElementById(id).classList.add('open');
-      }
-
-      function closeModal(id) {
-        document.getElementById(id).classList.remove('open');
-      }
-
-      document.querySelectorAll('[data-close]').forEach(btn => {
-        btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close')));
       });
 
-      // Login Flow
-      document.getElementById('openLoginBtn').addEventListener('click', () => {
-        document.getElementById('loginError').style.display = 'none';
-        document.getElementById('loginPassword').value = '';
-        openModal('loginModal');
+      renderManagePostsList();
+    }
+
+    /**
+     * Opens the category daily briefings modal for visitors or owner.
+     */
+    function openCategoryModal(categoryId) {
+      const category = appState.categories.find((c) => c.id === categoryId);
+      if (!category) return;
+
+      const posts = getPostsForCategory(categoryId);
+      document.getElementById('categoryModalIcon').innerHTML = getCategoryIconSvg(category.icon);
+      document.getElementById('categoryModalTitle').textContent = category.title;
+      document.getElementById('categoryModalSummary').textContent = category.defaultSummary;
+
+      const listEl = document.getElementById('categoryPostsList');
+      if (!posts.length) {
+        listEl.innerHTML = `
+          <div class="rounded-2xl border border-cyanpulse-400/20 bg-navy-900/70 p-6 text-center text-sm text-slate-300">
+            No daily updates published in ${escapeHtml(category.title)} yet.
+          </div>`;
+      } else {
+        listEl.innerHTML = posts.map((post, idx) => `
+          <div class="rounded-2xl border ${idx === 0 ? 'border-cyanpulse-400/45 bg-navy-700/80' : 'border-cyanpulse-400/15 bg-navy-900/70'} p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="rounded-full bg-cyanpulse-400/15 px-3 py-0.5 text-xs font-bold text-cyanpulse-400">
+                ${idx === 0 ? 'Today / Latest' : 'Archive'} &bull; ${escapeHtml(post.date || 'Daily')}
+              </span>
+            </div>
+            <h4 class="mt-2.5 text-lg font-bold text-white">${escapeHtml(post.title)}</h4>
+            <p class="mt-2 text-sm leading-relaxed text-slate-200">${escapeHtml(post.details)}</p>
+          </div>
+        `).join('');
+      }
+
+      const modal = document.getElementById('categoryModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeCategoryModal() {
+      const modal = document.getElementById('categoryModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    /**
+     * Opens Owner Settings modal and populates current settings fields.
+     */
+    function openOwnerModal() {
+      const { settings } = appState;
+      document.getElementById('settingSiteName').value = settings.siteName;
+      document.getElementById('settingOwnerName').value = settings.ownerName;
+      document.getElementById('settingOwnerRole').value = settings.ownerRole;
+      document.getElementById('settingContactEmail').value = settings.contactEmail;
+      document.getElementById('settingHeroSubtitle').value = settings.heroSubtitle;
+      document.getElementById('settingAboutText').value = settings.aboutParagraphs.join('\n\n');
+
+      if (!document.getElementById('postDateInput').value) {
+        document.getElementById('postDateInput').value = new Date().toISOString().slice(0, 10);
+      }
+
+      renderManagePostsList();
+      const modal = document.getElementById('ownerModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeOwnerModal() {
+      const modal = document.getElementById('ownerModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    /**
+     * Switches between Daily Updates tab and Profile/Ownership tab in Owner Panel.
+     */
+    function switchOwnerTab(activeTab) {
+      const dailyBtn = document.getElementById('tabDailyUpdatesBtn');
+      const profileBtn = document.getElementById('tabProfileOwnerBtn');
+      const dailyPanel = document.getElementById('ownerTabDailyUpdates');
+      const profilePanel = document.getElementById('ownerTabProfileSettings');
+
+      if (activeTab === 'daily') {
+        dailyPanel.classList.remove('hidden');
+        profilePanel.classList.add('hidden');
+        dailyBtn.className = 'owner-tab-btn rounded-xl bg-cyanpulse-400 px-4 py-2 text-navy-950 transition';
+        profileBtn.className = 'owner-tab-btn rounded-xl border border-cyanpulse-400/30 bg-navy-700 px-4 py-2 text-slate-200 transition hover:border-cyanpulse-400 hover:text-cyanpulse-400';
+      } else {
+        profilePanel.classList.remove('hidden');
+        dailyPanel.classList.add('hidden');
+        profileBtn.className = 'owner-tab-btn rounded-xl bg-cyanpulse-400 px-4 py-2 text-navy-950 transition';
+        dailyBtn.className = 'owner-tab-btn rounded-xl border border-cyanpulse-400/30 bg-navy-700 px-4 py-2 text-slate-200 transition hover:border-cyanpulse-400 hover:text-cyanpulse-400';
+      }
+    }
+
+    /**
+     * Renders published daily items list inside the Owner Panel with Edit & Delete actions.
+     */
+    function renderManagePostsList() {
+      const container = document.getElementById('managePostsList');
+      if (!container) return;
+
+      const filterVal = document.getElementById('filterManageCategory')?.value || 'all';
+      const filtered = appState.posts
+        .filter((p) => filterVal === 'all' || p.categoryId === filterVal)
+        .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+
+      if (!filtered.length) {
+        container.innerHTML = `
+          <div class="rounded-2xl border border-cyanpulse-400/15 bg-navy-900/70 p-4 text-center text-sm text-slate-400">
+            No items found for this filter. Add a new daily update above.
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map((post) => {
+        const catObj = appState.categories.find((c) => c.id === post.categoryId);
+        const catLabel = catObj ? catObj.title : post.categoryId;
+        return `
+          <div class="flex flex-col justify-between gap-3 rounded-2xl border border-cyanpulse-400/20 bg-navy-900/80 p-4 sm:flex-row sm:items-center">
+            <div class="min-w-0 flex-1">
+              <div class="flex flex-wrap items-center gap-2 text-xs">
+                <span class="rounded-lg bg-cyanpulse-400/15 px-2.5 py-0.5 font-bold text-cyanpulse-400">${escapeHtml(catLabel)}</span>
+                <span class="text-slate-400">${escapeHtml(post.date || '')}</span>
+              </div>
+              <h5 class="mt-1.5 text-sm sm:text-base font-bold text-white truncate">${escapeHtml(post.title)}</h5>
+              <p class="mt-0.5 text-xs text-slate-300 line-clamp-1">${escapeHtml(post.summary)}</p>
+            </div>
+            <div class="flex shrink-0 items-center gap-2">
+              <button type="button" data-edit-post="${escapeHtml(post.id)}"
+                      class="rounded-xl border border-cyanpulse-400/35 bg-navy-700 px-3 py-1.5 text-xs font-semibold text-cyanpulse-400 transition hover:bg-navy-600">
+                Edit
+              </button>
+              <button type="button" data-delete-post="${escapeHtml(post.id)}"
+                      class="rounded-xl border border-rose-400/35 bg-navy-700 px-3 py-1.5 text-xs font-semibold text-rose-300 transition hover:bg-rose-950/50">
+                Delete
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.querySelectorAll('[data-edit-post]').forEach((btn) => {
+        btn.addEventListener('click', () => startEditingPost(btn.getAttribute('data-edit-post')));
       });
 
-      document.getElementById('loginForm').addEventListener('submit', e => {
-        e.preventDefault();
-        const enteredName = document.getElementById('loginOwnerName').value.trim().toLowerCase();
-        const enteredPass = document.getElementById('loginPassword').value;
-        const validName = state.owner.name.trim().toLowerCase();
+      container.querySelectorAll('[data-delete-post]').forEach((btn) => {
+        btn.addEventListener('click', () => deletePostById(btn.getAttribute('data-delete-post')));
+      });
+    }
 
-        if (enteredName === validName && enteredPass === state.owner.passwordHash) {
-          isOwner = true;
-          sessionStorage.setItem(SESSION_KEY, 'true');
-          closeModal('loginModal');
-          updateAuthUI();
-          renderCategories();
-        } else {
-          document.getElementById('loginError').style.display = 'block';
+    /**
+     * Populates the post form with an existing item for editing.
+     */
+    function startEditingPost(postId) {
+      const post = appState.posts.find((p) => p.id === postId);
+      if (!post) return;
+
+      document.getElementById('editingPostId').value = post.id;
+      document.getElementById('postCategorySelect').value = post.categoryId;
+      document.getElementById('postDateInput').value = post.date || new Date().toISOString().slice(0, 10);
+      document.getElementById('postTitleInput').value = post.title;
+      document.getElementById('postSummaryInput').value = post.summary;
+      document.getElementById('postDetailsInput').value = post.details;
+
+      document.getElementById('postFormHeading').textContent = 'Edit Daily Technology Update';
+      document.getElementById('savePostSubmitBtn').textContent = 'Update Daily Item';
+      document.getElementById('cancelEditPostBtn').classList.remove('hidden');
+      document.getElementById('dailyPostForm').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function resetPostForm() {
+      document.getElementById('editingPostId').value = '';
+      document.getElementById('postTitleInput').value = '';
+      document.getElementById('postSummaryInput').value = '';
+      document.getElementById('postDetailsInput').value = '';
+      document.getElementById('postDateInput').value = new Date().toISOString().slice(0, 10);
+      document.getElementById('postFormHeading').textContent = 'Add Daily Technology Update';
+      document.getElementById('savePostSubmitBtn').textContent = 'Publish Daily Update';
+      document.getElementById('cancelEditPostBtn').classList.add('hidden');
+    }
+
+    function deletePostById(postId) {
+      appState.posts = appState.posts.filter((p) => p.id !== postId);
+      saveAppState();
+      renderAll();
+      showToast('Daily technology item removed.');
+    }
+
+    /**
+     * Wires up all DOM event listeners.
+     */
+    function bindEvents() {
+      document.getElementById('openOwnerPanelBtn').addEventListener('click', openOwnerModal);
+      document.getElementById('closeOwnerModalBtn').addEventListener('click', closeOwnerModal);
+      document.getElementById('closeCategoryModalBtn').addEventListener('click', closeCategoryModal);
+
+      // Backdrop click close
+      document.getElementById('ownerModal').addEventListener('click', (e) => {
+        if (e.target.id === 'ownerModal') closeOwnerModal();
+      });
+      document.getElementById('categoryModal').addEventListener('click', (e) => {
+        if (e.target.id === 'categoryModal') closeCategoryModal();
+      });
+
+      // Escape key close
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeOwnerModal();
+          closeCategoryModal();
         }
       });
 
-      document.getElementById('logoutBtn').addEventListener('click', () => {
-        isOwner = false;
-        sessionStorage.removeItem(SESSION_KEY);
-        updateAuthUI();
-        renderCategories();
-      });
+      // Owner tabs
+      document.getElementById('tabDailyUpdatesBtn').addEventListener('click', () => switchOwnerTab('daily'));
+      document.getElementById('tabProfileOwnerBtn').addEventListener('click', () => switchOwnerTab('profile'));
 
-      // Add / Edit Daily Update Flow
-      function openPostModal(post = null, defaultCat = 'computer') {
-        if (!enforceOwnerAccess()) return;
-        document.getElementById('postModalTitle').textContent = post ? 'Edit Daily Update' : 'Post Daily Technology Update';
-        document.getElementById('editPostId').value = post ? post.id : '';
-        document.getElementById('postCategory').value = post ? post.category : defaultCat;
-        document.getElementById('postTitle').value = post ? post.title : '';
-        document.getElementById('postDesc').value = post ? post.desc : '';
-        document.getElementById('postImageFile').value = '';
-        openModal('postModal');
-      }
+      // Filter posts by category
+      document.getElementById('filterManageCategory').addEventListener('change', renderManagePostsList);
 
-      document.getElementById('openAddModalBtn').addEventListener('click', () => openPostModal());
+      // Cancel edit post
+      document.getElementById('cancelEditPostBtn').addEventListener('click', resetPostForm);
 
-      document.getElementById('postForm').addEventListener('submit', e => {
+      // Add / Update daily post form
+      document.getElementById('dailyPostForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        if (!enforceOwnerAccess()) return;
+        try {
+          const editingId = document.getElementById('editingPostId').value.trim();
+          const categoryId = document.getElementById('postCategorySelect').value;
+          const date = document.getElementById('postDateInput').value || new Date().toISOString().slice(0, 10);
+          const title = document.getElementById('postTitleInput').value.trim();
+          const summary = document.getElementById('postSummaryInput').value.trim();
+          const details = document.getElementById('postDetailsInput').value.trim();
 
-        const editId = document.getElementById('editPostId').value;
-        const category = document.getElementById('postCategory').value;
-        const title = document.getElementById('postTitle').value.trim();
-        const desc = document.getElementById('postDesc').value.trim();
-        const fileInput = document.getElementById('postImageFile');
+          if (!title || !summary || !details) return;
 
-        const today = new Date().toLocaleDateString('en-US', {
-          month: 'short',
-          day: 'numeric',
-          year: 'numeric'
-        });
-
-        const commitPost = (imageData) => {
-          if (editId) {
-            const idx = state.posts.findIndex(p => p.id === editId);
+          if (editingId) {
+            const idx = appState.posts.findIndex((p) => p.id === editingId);
             if (idx !== -1) {
-              state.posts[idx] = {
-                ...state.posts[idx],
-                category,
+              appState.posts[idx] = {
+                ...appState.posts[idx],
+                categoryId,
+                date,
                 title,
-                desc,
-                image: imageData !== null ? imageData : state.posts[idx].image
+                summary,
+                details
               };
             }
+            showToast('Daily technology update edited.');
           } else {
-            state.posts.unshift({
-              id: 'p_' + Date.now(),
-              category,
+            appState.posts.unshift({
+              id: `post-${Date.now()}`,
+              categoryId,
+              date,
               title,
-              desc,
-              date: today,
-              image: imageData || ''
+              summary,
+              details
             });
+            showToast('New daily technology update published.');
           }
-          saveState();
-          renderCategories();
-          closeModal('postModal');
+
+          saveAppState();
+          renderAll();
+          resetPostForm();
+        } catch (err) {
+          console.error('Error saving daily post:', err);
+          showToast('Unable to save update.');
+        }
+      });
+
+      // Profile Photo Upload handler
+      document.getElementById('profilePhotoUploadInput').addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (typeof reader.result === 'string') {
+            appState.settings.profileImageSrc = reader.result;
+            saveAppState();
+            renderAll();
+            showToast('Founder profile picture updated.');
+          }
         };
-
-        if (fileInput.files && fileInput.files[0]) {
-          const reader = new FileReader();
-          reader.onload = ev => commitPost(ev.target.result);
-          reader.readAsDataURL(fileInput.files[0]);
-        } else {
-          commitPost(null);
-        }
+        reader.readAsDataURL(file);
       });
 
-      // Owner Settings Flow
-      document.getElementById('openSettingsModalBtn').addEventListener('click', () => {
-        if (!enforceOwnerAccess()) return;
-        document.getElementById('setOwnerName').value = state.owner.name;
-        document.getElementById('setOwnerRole').value = state.owner.role;
-        document.getElementById('setOwnerEmail').value = state.owner.email;
-        document.getElementById('setOwnerBio').value = state.owner.bio;
-        document.getElementById('setNewPassword').value = '';
-        document.getElementById('setAvatarFile').value = '';
-        openModal('settingsModal');
+      // Reset photo path to image_87339e.jpg
+      document.getElementById('resetPhotoToDefaultFileBtn').addEventListener('click', () => {
+        appState.settings.profileImageSrc = 'image_87339e.jpg';
+        saveAppState();
+        renderAll();
+        showToast('Set profile photo path to image_87339e.jpg.');
       });
 
-      document.getElementById('settingsForm').addEventListener('submit', e => {
+      // Ownership settings form submit
+      document.getElementById('ownershipSettingsForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        if (!enforceOwnerAccess()) return;
+        try {
+          const siteName = document.getElementById('settingSiteName').value.trim() || 'Cyber World';
+          const ownerName = document.getElementById('settingOwnerName').value.trim() || 'Jawad Ahmad';
+          const ownerRole = document.getElementById('settingOwnerRole').value.trim() || 'Founder & Website Owner';
+          const contactEmail = document.getElementById('settingContactEmail').value.trim() || 'jawadahmad44@icloud.com';
+          const heroSubtitle = document.getElementById('settingHeroSubtitle').value.trim();
+          const aboutRaw = document.getElementById('settingAboutText').value.trim();
 
-        state.owner.name = document.getElementById('setOwnerName').value.trim();
-        state.owner.role = document.getElementById('setOwnerRole').value.trim();
-        state.owner.email = document.getElementById('setOwnerEmail').value.trim();
-        state.owner.bio = document.getElementById('setOwnerBio').value.trim();
+          const paragraphs = aboutRaw
+            .split(/\n\s*\n/)
+            .map((s) => s.trim())
+            .filter(Boolean);
 
-        const newPass = document.getElementById('setNewPassword').value;
-        if (newPass) {
-          state.owner.passwordHash = newPass;
-        }
-
-        const avatarInput = document.getElementById('setAvatarFile');
-        if (avatarInput.files && avatarInput.files[0]) {
-          const reader = new FileReader();
-          reader.onload = ev => {
-            state.owner.avatar = ev.target.result;
-            saveState();
-            renderProfile();
-            renderCategories();
-            closeModal('settingsModal');
+          appState.settings = {
+            ...appState.settings,
+            siteName,
+            heroTitle: `Welcome to ${siteName}`,
+            ownerName,
+            ownerRole,
+            contactEmail,
+            heroSubtitle: heroSubtitle || DEFAULT_STATE.settings.heroSubtitle,
+            aboutParagraphs: paragraphs.length ? paragraphs : DEFAULT_STATE.settings.aboutParagraphs
           };
-          reader.readAsDataURL(avatarInput.files[0]);
-        } else {
-          saveState();
-          renderProfile();
-          renderCategories();
-          closeModal('settingsModal');
+
+          saveAppState();
+          renderAll();
+          showToast('Ownership & website settings saved.');
+        } catch (err) {
+          console.error('Error saving ownership settings:', err);
+          showToast('Could not save settings.');
         }
       });
 
-      // Initialize App
-      renderProfile();
-      updateAuthUI();
-      renderCategories();
-    })();
+      // Restore defaults button
+      document.getElementById('restoreDefaultAllBtn').addEventListener('click', () => {
+        appState = structuredClone(DEFAULT_STATE);
+        saveAppState();
+        renderAll();
+        openOwnerModal();
+        showToast('Restored default Cyber World settings and daily items.');
+      });
+
+      // Copy Email button using execCommand fallback for iframe safety
+      document.getElementById('copyEmailBtn').addEventListener('click', () => {
+        const emailText = appState.settings.contactEmail;
+        const tempInput = document.createElement('input');
+        tempInput.value = emailText;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        try {
+          document.execCommand('copy');
+          showToast(`Copied ${emailText} to clipboard.`);
+        } catch (err) {
+          showToast(`Email: ${emailText}`);
+        }
+        document.body.removeChild(tempInput);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('postDateInput').value = new Date().toISOString().slice(0, 10);
+      bindEvents();
+      renderAll();
+    });
   </script>
 </body>
 </html>
